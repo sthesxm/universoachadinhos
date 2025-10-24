@@ -30,11 +30,11 @@
       --grad-start:#520082;
       --grad-end:#8b0058;
 
-      /* CTA principal atualizado */
+      /* CTA principal (gradiente atual) */
       --cta1-start:#ab07a4;
       --cta1-end:#860155;
 
-      --amber:#FFC107;
+      --amber:#FFC107; /* barra de vagas */
       --white:#ffffff;
       --gray:#555;
       --muted:#777;
@@ -63,9 +63,11 @@
     h1{font-size:28px;font-weight:800;margin-bottom:4px;}
     .subtitle{font-size:14px;color:#f1f1f1;margin-bottom:10px;}
 
-    /* Barra de vagas */
+    /* Área principal */
     .cta-section{text-align:center;margin:8px auto 0;padding:12px;max-width:700px;}
     .vacancy-top{font-weight:800;font-size:16px;margin-bottom:6px;}
+
+    /* Barra de vagas */
     .bar{
       width:100%;height:14px;background:#f9f9f9;
       border:2px solid #eee;border-radius:999px;position:relative;overflow:hidden;
@@ -80,7 +82,7 @@
     }
     @keyframes flashOut{to{box-shadow:none;}}
 
-    /* Pontinho pulsante */
+    /* Prova social (pontinho pulsante) */
     .micro-trust{
       font-size:13.5px;font-weight:700;color:#666;margin:10px 0;
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
@@ -97,18 +99,50 @@
       100%{box-shadow:0 0 0 0 rgba(31,191,117,0);}
     }
 
-    /* CTA principal (novo gradiente + borda) */
+    /* ===== CTA principal — melhorias aplicadas ===== */
+
+    /* wrap para badge opcional */
+    .cta-wrap{ position:relative; display:inline-block; width:100%; }
+
+    /* badge opcional (comentado no HTML) */
+    .cta-badge{
+      position:absolute; top:-10px; right:12px;
+      background:#111; color:#fff; font-weight:800; font-size:11px;
+      padding:6px 10px; border-radius:999px; letter-spacing:.2px;
+      box-shadow:0 6px 16px rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.1);
+      opacity:.96;
+    }
+
+    /* botão */
     .cta-btn{
       display:inline-flex;align-items:center;justify-content:center;
       width:100%;padding:14px 26px;border-radius:999px;
       font-weight:900;font-size:17px;color:#fff;
       background:linear-gradient(180deg,var(--cta1-start),var(--cta1-end));
-      border:2px solid #520082;
+      border:2px solid #520082; /* borda pedida */
       cursor:pointer;
       box-shadow:0 10px 25px rgba(141,0,76,.35);
       animation:pulse 1.6s ease-in-out infinite;
       position:relative;overflow:hidden;
+      transition: transform .06s ease, box-shadow .06s ease; /* press effect */
     }
+
+    /* halo intermitente */
+    .cta-btn.attn-halo::before{
+      content:""; position:absolute; inset:-4px; border-radius:999px;
+      border:2px solid rgba(82,0,130,.35); /* #520082 com alpha */
+      filter: blur(2px);
+      opacity:0; pointer-events:none;
+      animation:haloPop 7s ease-in-out infinite;
+    }
+    @keyframes haloPop{
+      0%,92%{ opacity:0; transform:scale(1) }
+      94%   { opacity:1; transform:scale(1.03) }
+      100%  { opacity:0; transform:scale(1.08) }
+    }
+
+    /* brilho deslizante */
     .cta-btn::after{
       content:"";position:absolute;top:0;bottom:0;left:-20%;
       width:20%;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.45) 50%,transparent 100%);
@@ -116,6 +150,23 @@
     }
     @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
     @keyframes shine{0%,60%{left:-25%}70%{left:110%}100%{left:110%}}
+
+    /* “press effect” (toque/hover) */
+    .cta-btn:active{
+      transform: translateY(1px) scale(.99);
+      box-shadow: 0 6px 16px rgba(0,0,0,.25);
+    }
+
+    /* seta animada dentro do botão */
+    .cta-icon{
+      display:inline-block; margin-left:10px; font-weight:900;
+      transform:translateX(0);
+      animation:arrowNudge 1.8s ease-in-out infinite;
+    }
+    @keyframes arrowNudge{
+      0%,60%,100% { transform:translateX(0) }
+      75%         { transform:translateX(4px) }
+    }
 
     .trust-line{font-size:12px;color:#777;margin-top:8px;font-weight:600;}
     .feed{margin:16px auto 10px;max-width:500px;background:#f7f7f7;
@@ -128,7 +179,7 @@
       display:flex;align-items:center;justify-content:space-between;z-index:50;
     }
 
-    /* Botão do rodapé com gradiente roxo→rosa */
+    /* Botão do rodapé com gradiente #520082 → #8b0058 */
     .sticky-btn{
       background:linear-gradient(180deg,var(--grad-start),var(--grad-end));
       color:#fff;border:none;border-radius:999px;padding:12px 20px;
@@ -161,9 +212,13 @@
       <span class="live-dot"></span> +7.500 membros ativos · 🎯 1 clique · 🚫 Sem spam
     </div>
 
-    <button id="ctaMain" class="cta-btn">
-      <span>ENTRAR GRÁTIS NO GRUPO</span>
-    </button>
+    <!-- Badge opcional: basta remover os comentários para ativar -->
+    <div class="cta-wrap">
+      <!-- <div class="cta-badge">Vagas acabando</div> -->
+      <button id="ctaMain" class="cta-btn attn-halo">
+        <span>ENTRAR GRÁTIS NO GRUPO</span><span class="cta-icon">➜</span>
+      </button>
+    </div>
 
     <p class="trust-line">🔒 100% seguro · Link oficial do grupo · Nenhum dado é solicitado</p>
     <div class="feed" id="feed"></div>
@@ -199,6 +254,7 @@
   </script>
 </body>
 </html>
+
 
 
 
