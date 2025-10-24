@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Universo Promo e Achadinhos 💛🏠 | Entrar no Grupo</title>
-  <link rel="preconnect" href="https://sndflw.com" crossorigin>
 
   <!-- Meta Pixel -->
   <script>
@@ -100,38 +98,24 @@
     }
 
     /* ===== CTA principal — melhorias aplicadas ===== */
-
-    /* wrap para badge opcional */
     .cta-wrap{ position:relative; display:inline-block; width:100%; }
 
-    /* badge opcional (comentado no HTML) */
-    .cta-badge{
-      position:absolute; top:-10px; right:12px;
-      background:#111; color:#fff; font-weight:800; font-size:11px;
-      padding:6px 10px; border-radius:999px; letter-spacing:.2px;
-      box-shadow:0 6px 16px rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.1);
-      opacity:.96;
-    }
-
-    /* botão */
     .cta-btn{
       display:inline-flex;align-items:center;justify-content:center;
       width:100%;padding:14px 26px;border-radius:999px;
       font-weight:900;font-size:17px;color:#fff;
       background:linear-gradient(180deg,var(--cta1-start),var(--cta1-end));
-      border:2px solid #520082; /* borda pedida */
+      border:2px solid #520082;
       cursor:pointer;
       box-shadow:0 10px 25px rgba(141,0,76,.35);
       animation:pulse 1.6s ease-in-out infinite;
       position:relative;overflow:hidden;
-      transition: transform .06s ease, box-shadow .06s ease; /* press effect */
+      transition: transform .06s ease, box-shadow .06s ease;
     }
 
-    /* halo intermitente */
     .cta-btn.attn-halo::before{
       content:""; position:absolute; inset:-4px; border-radius:999px;
-      border:2px solid rgba(82,0,130,.35); /* #520082 com alpha */
+      border:2px solid rgba(82,0,130,.35);
       filter: blur(2px);
       opacity:0; pointer-events:none;
       animation:haloPop 7s ease-in-out infinite;
@@ -142,7 +126,6 @@
       100%  { opacity:0; transform:scale(1.08) }
     }
 
-    /* brilho deslizante */
     .cta-btn::after{
       content:"";position:absolute;top:0;bottom:0;left:-20%;
       width:20%;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.45) 50%,transparent 100%);
@@ -150,22 +133,27 @@
     }
     @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
     @keyframes shine{0%,60%{left:-25%}70%{left:110%}100%{left:110%}}
+    .cta-btn:active{transform: translateY(1px) scale(.99);box-shadow:0 6px 16px rgba(0,0,0,.25);}
 
-    /* “press effect” (toque/hover) */
-    .cta-btn:active{
-      transform: translateY(1px) scale(.99);
-      box-shadow: 0 6px 16px rgba(0,0,0,.25);
+    /* Setas animadas dos dois lados */
+    .cta-arrow {
+      display:inline-block;
+      font-size:16px;
+      color:rgba(255,255,255,0.9);
+      font-weight:900;
+      animation-duration:1.5s;
+      animation-timing-function:ease-in-out;
+      animation-iteration-count:infinite;
     }
-
-    /* seta animada dentro do botão */
-    .cta-icon{
-      display:inline-block; margin-left:10px; font-weight:900;
-      transform:translateX(0);
-      animation:arrowNudge 1.8s ease-in-out infinite;
+    .cta-arrow.left {margin-right:10px;animation-name:arrowInLeft;}
+    .cta-arrow.right {margin-left:10px;transform:rotateY(180deg);animation-name:arrowInRight;}
+    @keyframes arrowInLeft {
+      0%,60%,100% { transform:translateX(0); opacity:1; }
+      70% { transform:translateX(3px); opacity:.85; }
     }
-    @keyframes arrowNudge{
-      0%,60%,100% { transform:translateX(0) }
-      75%         { transform:translateX(4px) }
+    @keyframes arrowInRight {
+      0%,60%,100% { transform:translateX(0); opacity:1; }
+      70% { transform:translateX(-3px); opacity:.85; }
     }
 
     .trust-line{font-size:12px;color:#777;margin-top:8px;font-weight:600;}
@@ -179,7 +167,7 @@
       display:flex;align-items:center;justify-content:space-between;z-index:50;
     }
 
-    /* Botão do rodapé com gradiente #520082 → #8b0058 */
+    /* Botão do rodapé */
     .sticky-btn{
       background:linear-gradient(180deg,var(--grad-start),var(--grad-end));
       color:#fff;border:none;border-radius:999px;padding:12px 20px;
@@ -212,11 +200,11 @@
       <span class="live-dot"></span> +7.500 membros ativos · 🎯 1 clique · 🚫 Sem spam
     </div>
 
-    <!-- Badge opcional: basta remover os comentários para ativar -->
     <div class="cta-wrap">
-      <!-- <div class="cta-badge">Vagas acabando</div> -->
       <button id="ctaMain" class="cta-btn attn-halo">
-        <span>ENTRAR GRÁTIS NO GRUPO</span><span class="cta-icon">➜</span>
+        <span class="cta-arrow left">➤</span>
+        <span>ENTRAR GRÁTIS NO GRUPO</span>
+        <span class="cta-arrow right">➤</span>
       </button>
     </div>
 
@@ -254,6 +242,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
