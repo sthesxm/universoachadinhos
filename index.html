@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Universo Promo e Achadinhos 💛🏠 | Entrar no Grupo</title>
-  <!-- Performance: acelera primeira ida ao destino -->
   <link rel="preconnect" href="https://sndflw.com" crossorigin>
 
   <!-- Meta Pixel -->
@@ -20,7 +19,6 @@
   'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '734806152953802');
-  // 🚫 Bloqueia eventos automáticos (como Subscribe)
   fbq('set', 'autoConfig', false, '734806152953802');
   fbq('track', 'PageView');
   </script>
@@ -85,7 +83,6 @@
       border-radius:999px;transition:inset .5s ease;
       overflow:hidden;
     }
-    /* Sheen/reflexo sutil na barra */
     .bar>.fill::after{
       content:"";
       position:absolute; top:0; bottom:0; left:-40%;
@@ -103,12 +100,15 @@
     /* CTA */
     .cta-section{text-align:center;margin:10px auto 0;padding:15px;max-width:700px;}
 
-    /* Prova social — agora toda em negrito */
+    /* Prova social — toda em negrito e 1 linha no mobile */
     .micro-trust{
-      font-size:15px;
+      font-size:14px;
       font-weight:900; /* tudo bold */
       color:#3a3a3a;
       margin:10px 0 12px 0;
+      white-space:nowrap;       /* mantém em uma linha */
+      overflow:hidden;
+      text-overflow:ellipsis;   /* se apertar muito, usa "..." */
     }
 
     .cta-btn{
@@ -118,21 +118,17 @@
       border-radius:999px;font-weight:900;font-size:18px;letter-spacing:.2px;
       background:linear-gradient(180deg,var(--pink),var(--pink-dark));
       color:#fff;border:none;cursor:pointer;
-      /* 1) Zoom-in ao entrar + pulse contínuo */
       animation:zoomInCta .5s ease both, pulse 1.6s ease-in-out infinite;
       box-shadow:0 10px 25px rgba(141,0,76,.35);
       transition:transform .12s ease, opacity .2s ease, filter .2s ease;
     }
-    /* 4) Hover com leve brilho e micro-scale */
     .cta-btn:hover{ filter:brightness(1.1); transform:scale(1.03); }
 
-    /* 1) animação de entrada */
     @keyframes zoomInCta{
       from{transform:scale(0.9); opacity:0;}
       to{transform:scale(1); opacity:1;}
     }
 
-    /* Shine que varre o botão periodicamente */
     .cta-btn::after{
       content:"";
       position:absolute; top:0; bottom:0; left:-20%;
@@ -151,14 +147,13 @@
     .cta-btn[disabled]{opacity:.7;cursor:not-allowed;animation:none}
     .spinner{
       width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;
-      display:none; /* aparece durante o clique */
+      display:none;
       animation:spin .7s linear infinite;
     }
     .cta-btn.loading .spinner{display:inline-block;}
     @keyframes spin{to{transform:rotate(360deg)}}
     @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
 
-    /* Sparkles sutis no hover */
     .cta-btn:hover::before,
     .cta-btn:hover::after{
       content:"✦";
@@ -213,7 +208,6 @@
       color:#fff;border:none;border-radius:999px;padding:14px 26px;
       font-weight:800;font-size:15px;cursor:pointer;
       box-shadow:0 6px 16px rgba(141,0,76,.35);margin-left:10px;
-      /* 2) Pulse suave no rodapé */
       animation:footPulse 6s ease-in-out infinite;
       transition:filter .2s ease, transform .12s ease;
     }
@@ -224,7 +218,7 @@
       98%{transform:scale(1.06)}
     }
 
-    /* 2) Mini aviso de urgência flutuante */
+    /* Selo flutuante com copy revisada */
     .floating-alert{
       position:fixed; bottom:80px; right:15px;
       background:linear-gradient(180deg,#4d046e,#8d004c);
@@ -240,7 +234,7 @@
       50%{transform:translateY(-4px);}
     }
 
-    /* 5) Linha de confiança */
+    /* Linha de confiança */
     .trust-line{
       font-size:12px;
       color:#666;
@@ -248,7 +242,6 @@
       font-weight:700;
     }
 
-    /* Acessibilidade: respeita preferências de reduzir movimentos */
     @media (prefers-reduced-motion: reduce){
       *, *::before, *::after{ animation: none !important; transition: none !important }
     }
@@ -269,8 +262,8 @@
       <div class="bar"><div class="fill" id="fillBar"></div></div>
     </div>
 
-    <!-- Prova social (tudo em negrito) -->
-    <div class="micro-trust">✅ +7.200 membros · 🎯 1 clique, sem cadastro · 🚫 Sem spam · ⏱️ Pode sair quando quiser</div>
+    <!-- Prova social — compacta e em negrito -->
+    <div class="micro-trust">✅ +7.500 membros ativos · 🎯 1 clique · 🚫 Sem spam · ⏱️ Saia quando quiser</div>
 
     <button id="ctaMain" class="cta-btn">
       <span>ENTRAR GRÁTIS NO GRUPO</span>
@@ -318,11 +311,10 @@
     <button id="ctaFooter" class="sticky-btn">Entrar no grupo</button>
   </div>
 
-  <!-- 2) Mini aviso flutuante -->
-  <div class="floating-alert">🔥 vagas atualizando...</div>
+  <!-- Selo flutuante com copy nova -->
+  <div class="floating-alert">⚡ novas vagas liberadas agora</div>
 
   <script>
-    // URL base (mantém centralizada aqui)
     const WHATS_LINK="https://sndflw.com/i/universoachadinhos";
 
     const START_VACANCIES=24, MIN_VACANCIES=2;
@@ -368,7 +360,6 @@
       const prev = vacancyText.textContent;
       vacancyText.textContent=`Últimas vagas de hoje • Restam ${currentVacancies} 👇`;
       if(prev !== vacancyText.textContent){
-        // micro “tick” na contagem
         vacancyText.style.transition = 'transform .12s ease';
         vacancyText.style.transform = 'scale(1.08)';
         setTimeout(()=>vacancyText.style.transform='scale(1)', 120);
@@ -412,47 +403,38 @@
     },{threshold:0.12});
     document.querySelectorAll('.benefit').forEach(b=> io.observe(b));
 
-    // ===== Conversão: Deep-link para WhatsApp + dedupe de Lead =====
+    // Deep-link para WhatsApp + dedupe (se usar CAPI no futuro)
     function uuidv4(){
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
         const r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
         return v.toString(16);
       });
     }
-
     function openWhatsAppSmart(){
-      const eventId = 'lead-' + uuidv4(); // útil se um dia usar CAPI (dedupe)
+      const eventId = 'lead-' + uuidv4();
       try{ fbq('track','Lead',{event_id: eventId}); }catch(e){}
 
       const ua = navigator.userAgent || '';
       const isAndroid = /Android/i.test(ua);
       const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
-      // 1) Tenta abrir app nativo (Android/iOS) quando possível
       if (isAndroid) {
-        // Intent (Android) com fallback automático ao navegador
         const intentUrl = `intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end`;
-        window.location.href = WHATS_LINK;          // seu encurtador (tracking/roteamento)
-        setTimeout(()=>{ window.location.href = intentUrl; }, 150); // tenta app
+        window.location.href = WHATS_LINK;
+        setTimeout(()=>{ window.location.href = intentUrl; }, 150);
       } else if (isIOS) {
-        // iOS: tenta app primeiro, depois link web
         window.location.href = 'whatsapp://';
         setTimeout(()=>{ window.location.href = WHATS_LINK; }, 150);
       } else {
-        // Desktop: manda para link web
         window.location.href = WHATS_LINK;
       }
-
-      // Fallback adicional para garantir abertura mesmo se bloqueado
       setTimeout(()=>{ window.open(WHATS_LINK, '_blank'); }, 1500);
     }
-
     function handleClick(e){
       const btn = e.currentTarget;
       btn.classList.add('loading');
       btn.setAttribute('disabled','true');
       openWhatsAppSmart();
-      // Reativa após alguns segundos, caso usuário volte
       setTimeout(()=>{ btn.classList.remove('loading'); btn.removeAttribute('disabled'); }, 4000);
     }
 
@@ -462,11 +444,11 @@
     window.addEventListener('load',()=>{
       updateVacancyUI();
       if(currentVacancies>MIN_VACANCIES){ setTimeout(step,1000); }
-      // (Sem ViewContent extra)
     });
   </script>
 </body>
 </html>
+
 
 
 
