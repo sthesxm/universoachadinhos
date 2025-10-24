@@ -104,17 +104,18 @@
     @keyframes shine{0%,60%{left:-25%}70%{left:110%}100%{left:110%}}
     .cta-btn:active{transform:translateY(1px) scale(.99);box-shadow:0 6px 16px rgba(0,0,0,.25);}
 
+    /* === SETAS MAIORES === */
     .cta-arrow{
       display:inline-block;
-      font-size:18px;
+      font-size:26px; /* maior para mais destaque */
       color:rgba(255,255,255,0.95);
       font-weight:900;
       animation-duration:1.5s;
       animation-timing-function:ease-in-out;
       animation-iteration-count:infinite;
     }
-    .cta-arrow.left{margin-right:10px;animation-name:arrowInLeft;}
-    .cta-arrow.right{margin-left:10px;animation-name:arrowInRight;}
+    .cta-arrow.left{margin-right:12px;animation-name:arrowInLeft;}
+    .cta-arrow.right{margin-left:12px;animation-name:arrowInRight;}
     @keyframes arrowInLeft{
       0%,60%,100%{transform:translateX(0);opacity:1;}
       70%{transform:translateX(4px);opacity:.85;}
@@ -207,6 +208,7 @@
   </script>
 </body>
 </html>
+
 
 
 
