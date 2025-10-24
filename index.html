@@ -26,27 +26,28 @@
 
   <style>
     :root{
-      /* Gradiente principal (fundo do header) + botão do rodapé */
+      /* Gradiente topo e botão do rodapé */
       --grad-start:#520082;
       --grad-end:#8b0058;
 
-      /* CTA principal (mantido como você curtiu) */
+      /* CTA principal */
       --cta1-start:#ff008a;
       --cta1-end:#7d0044;
 
-      --amber:#FFC107; /* barra de vagas */
+      --amber:#FFC107;
       --white:#ffffff;
       --gray:#555;
       --muted:#777;
       --shadow:0 10px 25px rgba(0,0,0,.1);
     }
+
     *{box-sizing:border-box;margin:0;padding:0}
     body{
       font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
       background:#fff;color:#222;padding-bottom:80px;
     }
 
-    /* Topo (volta para #520082 → #8b0058) */
+    /* Header */
     header{
       background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
       padding:18px;text-align:center;
@@ -58,12 +59,11 @@
       background:#fff;display:flex;align-items:center;justify-content:center;
       box-shadow:0 8px 20px rgba(0,0,0,.2);overflow:hidden;
     }
-    .logo-wrap img{
-      width:100%;height:100%;object-fit:cover;border-radius:50%;
-    }
+    .logo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
     h1{font-size:28px;font-weight:800;margin-bottom:4px;}
     .subtitle{font-size:14px;color:#f1f1f1;margin-bottom:10px;}
 
+    /* Barra de vagas */
     .cta-section{text-align:center;margin:8px auto 0;padding:12px;max-width:700px;}
     .vacancy-top{font-weight:800;font-size:16px;margin-bottom:6px;}
     .bar{
@@ -80,7 +80,7 @@
     }
     @keyframes flashOut{to{box-shadow:none;}}
 
-    /* Prova social: ponto pulsante “online” */
+    /* Pontinho pulsante */
     .micro-trust{
       font-size:13.5px;font-weight:700;color:#666;margin:10px 0;
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
@@ -97,13 +97,14 @@
       100%{box-shadow:0 0 0 0 rgba(31,191,117,0);}
     }
 
-    /* CTA principal (mantido #ff008a → #7d0044) */
+    /* CTA principal com borda #520082 */
     .cta-btn{
       display:inline-flex;align-items:center;justify-content:center;
       width:100%;padding:14px 26px;border-radius:999px;
       font-weight:900;font-size:17px;color:#fff;
       background:linear-gradient(180deg,var(--cta1-start),var(--cta1-end));
-      border:none;cursor:pointer;
+      border:2px solid #520082; /* 👈 nova borda */
+      cursor:pointer;
       box-shadow:0 10px 25px rgba(141,0,76,.35);
       animation:pulse 1.6s ease-in-out infinite;
       position:relative;overflow:hidden;
@@ -117,20 +118,17 @@
     @keyframes shine{0%,60%{left:-25%}70%{left:110%}100%{left:110%}}
 
     .trust-line{font-size:12px;color:#777;margin-top:8px;font-weight:600;}
-    .feed{
-      margin:16px auto 10px;max-width:500px;background:#f7f7f7;
-      border:1px solid #eaeaea;border-radius:14px;padding:10px;
-    }
+    .feed{margin:16px auto 10px;max-width:500px;background:#f7f7f7;
+      border:1px solid #eaeaea;border-radius:14px;padding:10px;}
 
-    /* Rodapé fixo — fundo volta a ser preto (não gradiente) */
+    /* Rodapé preto */
     .sticky-footer{
-      position:fixed;bottom:0;left:0;right:0;
-      background:#111; /* preto como antes */
-      color:#fff;padding:10px 14px;
-      box-shadow:0 -8px 20px rgba(0,0,0,.25);
+      position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
+      padding:10px 14px;box-shadow:0 -8px 20px rgba(0,0,0,.25);
       display:flex;align-items:center;justify-content:space-between;z-index:50;
     }
-    /* Botão do rodapé — gradiente #520082 → #8b0058 */
+
+    /* Botão do rodapé com gradiente roxo→rosa */
     .sticky-btn{
       background:linear-gradient(180deg,var(--grad-start),var(--grad-end));
       color:#fff;border:none;border-radius:999px;padding:12px 20px;
@@ -197,17 +195,11 @@
     }
     document.getElementById('ctaMain').addEventListener('click',handleClick);
     document.getElementById('ctaFooter').addEventListener('click',handleClick);
-
-    setTimeout(()=>{
-      const btn=document.getElementById('ctaMain');
-      btn.style.animation='nudge .8s ease both';
-      setTimeout(()=>btn.style.animation='',1000);
-    },6000);
-
     window.addEventListener('load',()=>updateVacancyUI());
   </script>
 </body>
 </html>
+
 
 
 
