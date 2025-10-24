@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -83,9 +83,9 @@
       position:absolute;inset:0 100% 0 0;
       background:var(--amber); /* amarelo gema sólido */
       border-radius:999px;transition:inset .5s ease;
-      /* brilho diagonal sutil correndo por cima */
-      overflow: hidden;
+      overflow:hidden;
     }
+    /* Sheen/reflexo sutil na barra */
     .bar>.fill::after{
       content:"";
       position:absolute; top:0; bottom:0; left:-40%;
@@ -103,27 +103,35 @@
     /* CTA */
     .cta-section{text-align:center;margin:10px auto 0;padding:15px;max-width:700px;}
 
-    /* Prova social compacta acima do botão (fonte maior) */
+    /* Prova social — agora toda em negrito */
     .micro-trust{
       font-size:15px;
+      font-weight:900; /* tudo bold */
       color:#3a3a3a;
       margin:10px 0 12px 0;
-      font-weight:700;
     }
-    .micro-trust strong{font-weight:900}
 
     .cta-btn{
-      position:relative;
-      overflow:hidden;
+      position:relative; overflow:hidden;
       display:inline-flex;align-items:center;justify-content:center;gap:10px;
       padding:16px 32px;width:100%;
       border-radius:999px;font-weight:900;font-size:18px;letter-spacing:.2px;
       background:linear-gradient(180deg,var(--pink),var(--pink-dark));
       color:#fff;border:none;cursor:pointer;
-      animation:pulse 1.6s ease-in-out infinite;
+      /* 1) Zoom-in ao entrar + pulse contínuo */
+      animation:zoomInCta .5s ease both, pulse 1.6s ease-in-out infinite;
       box-shadow:0 10px 25px rgba(141,0,76,.35);
-      transition:transform .08s ease, opacity .2s ease;
+      transition:transform .12s ease, opacity .2s ease, filter .2s ease;
     }
+    /* 4) Hover com leve brilho e micro-scale */
+    .cta-btn:hover{ filter:brightness(1.1); transform:scale(1.03); }
+
+    /* 1) animação de entrada */
+    @keyframes zoomInCta{
+      from{transform:scale(0.9); opacity:0;}
+      to{transform:scale(1); opacity:1;}
+    }
+
     /* Shine que varre o botão periodicamente */
     .cta-btn::after{
       content:"";
@@ -150,6 +158,23 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
 
+    /* Sparkles sutis no hover */
+    .cta-btn:hover::before,
+    .cta-btn:hover::after{
+      content:"✦";
+      position:absolute;
+      font-size:12px;
+      opacity:.9;
+      animation:spark 800ms ease-out forwards;
+    }
+    .cta-btn:hover::before{ left:18%; top:12%; }
+    .cta-btn:hover::after{ right:22%; bottom:18%; }
+    @keyframes spark{
+      0%{ transform:scale(.6); opacity:0; }
+      40%{ transform:scale(1.2); opacity:1; }
+      100%{ transform:scale(0.9) translateY(-6px); opacity:0; }
+    }
+
     /* Feed */
     .feed{
       margin:18px auto 12px;max-width:500px;background:#f0f0f0;
@@ -173,14 +198,8 @@
       background:rgba(77,4,110,0.10);
       border-radius:16px;padding:14px 16px;margin-bottom:14px;
       border:1px solid var(--pink);box-shadow:0 4px 10px rgba(0,0,0,0.05);
+      transform:translateY(10px); opacity:0;
     }
-    .emojibox{
-      width:46px;height:46px;min-width:46px;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(180deg,var(--pink),var(--pink-dark));
-      border-radius:12px;font-size:22px;color:#fff;
-      transition:transform .15s ease;
-    }
-    .benefit:hover .emojibox{ transform: translateY(-2px) }
 
     /* Rodapé fixo */
     .sticky-footer{
@@ -194,12 +213,39 @@
       color:#fff;border:none;border-radius:999px;padding:14px 26px;
       font-weight:800;font-size:15px;cursor:pointer;
       box-shadow:0 6px 16px rgba(141,0,76,.35);margin-left:10px;
+      /* 2) Pulse suave no rodapé */
       animation:footPulse 6s ease-in-out infinite;
+      transition:filter .2s ease, transform .12s ease;
     }
+    .sticky-btn:hover{ filter:brightness(1.06); transform:scale(1.02); }
     @keyframes footPulse{
       0%,92%,100%{transform:scale(1)}
       95%{transform:scale(1.04)}
       98%{transform:scale(1.06)}
+    }
+
+    /* 2) Mini aviso de urgência flutuante */
+    .floating-alert{
+      position:fixed; bottom:80px; right:15px;
+      background:linear-gradient(180deg,#4d046e,#8d004c);
+      color:#fff; font-weight:800;
+      padding:8px 14px; border-radius:999px;
+      box-shadow:0 6px 16px rgba(141,0,76,.35);
+      animation:floaty 4s ease-in-out infinite;
+      font-size:13px;
+      z-index:60;
+    }
+    @keyframes floaty{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-4px);}
+    }
+
+    /* 5) Linha de confiança */
+    .trust-line{
+      font-size:12px;
+      color:#666;
+      margin-top:10px;
+      font-weight:700;
     }
 
     /* Acessibilidade: respeita preferências de reduzir movimentos */
@@ -223,13 +269,15 @@
       <div class="bar"><div class="fill" id="fillBar"></div></div>
     </div>
 
-    <!-- Micro prova social -->
-    <div class="micro-trust">✅ <strong>+7.200 membros</strong> · 🎯 <strong>1 clique, sem cadastro</strong> · 🚫 Sem spam · ⏱️ Pode sair quando quiser</div>
+    <!-- Prova social (tudo em negrito) -->
+    <div class="micro-trust">✅ +7.200 membros · 🎯 1 clique, sem cadastro · 🚫 Sem spam · ⏱️ Pode sair quando quiser</div>
 
     <button id="ctaMain" class="cta-btn">
       <span>ENTRAR GRÁTIS NO GRUPO</span>
       <span class="spinner" aria-hidden="true"></span>
     </button>
+
+    <p class="trust-line">🔒 100% seguro · Link oficial do grupo · Nenhum dado é solicitado</p>
 
     <div class="feed" id="feed"></div>
   </section>
@@ -269,6 +317,9 @@
     <div>⏳ Últimas vagas de hoje</div>
     <button id="ctaFooter" class="sticky-btn">Entrar no grupo</button>
   </div>
+
+  <!-- 2) Mini aviso flutuante -->
+  <div class="floating-alert">🔥 vagas atualizando...</div>
 
   <script>
     // URL base (mantém centralizada aqui)
@@ -314,7 +365,14 @@
       }, msToMidnight);
     }
     function updateVacancyUI(){
+      const prev = vacancyText.textContent;
       vacancyText.textContent=`Últimas vagas de hoje • Restam ${currentVacancies} 👇`;
+      if(prev !== vacancyText.textContent){
+        // micro “tick” na contagem
+        vacancyText.style.transition = 'transform .12s ease';
+        vacancyText.style.transform = 'scale(1.08)';
+        setTimeout(()=>vacancyText.style.transform='scale(1)', 120);
+      }
       const filled=(START_VACANCIES-currentVacancies)/(START_VACANCIES-MIN_VACANCIES);
       const pct=Math.max(0,Math.min(1,filled));
       fillBar.style.inset=`0 ${(1-pct)*100}% 0 0`;
@@ -340,6 +398,19 @@
       else{ feedEl.appendChild(row); }
       if(feedEl.children.length>3){ feedEl.removeChild(feedEl.lastChild); }
     }
+
+    // Revela as vantagens ao rolar
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.style.transition='transform .4s ease, opacity .4s ease';
+          e.target.style.transform='translateY(0)';
+          e.target.style.opacity='1';
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.benefit').forEach(b=> io.observe(b));
 
     // ===== Conversão: Deep-link para WhatsApp + dedupe de Lead =====
     function uuidv4(){
@@ -396,4 +467,6 @@
   </script>
 </body>
 </html>
+
+
 
