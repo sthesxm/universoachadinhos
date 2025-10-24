@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +63,6 @@
       animation:flashOut .55s ease-out forwards;}
     @keyframes flashOut{to{box-shadow:none;}}
 
-    /* Prova social — pontinho dentro do texto */
     .micro-trust{
       font-size:13.5px;
       font-weight:700;
@@ -92,11 +90,12 @@
       100%{ box-shadow:0 0 0 0 rgba(31,191,117,0); }
     }
 
+    /* CTA botão principal – NOVO GRADIENTE */
     .cta-btn{
       display:inline-flex;align-items:center;justify-content:center;
       width:100%;padding:14px 26px;border-radius:999px;
       font-weight:900;font-size:17px;color:#fff;
-      background:linear-gradient(180deg,var(--pink),var(--pink-dark));
+      background:linear-gradient(180deg,#ff008a,#7d0044);
       border:none;cursor:pointer;
       box-shadow:0 10px 25px rgba(141,0,76,.35);
       animation:pulse 1.6s ease-in-out infinite;
@@ -187,7 +186,6 @@
     document.getElementById('ctaMain').addEventListener('click',handleClick);
     document.getElementById('ctaFooter').addEventListener('click',handleClick);
 
-    // nudge leve no CTA depois de 6s
     setTimeout(()=>{
       const btn=document.getElementById('ctaMain');
       btn.style.animation='nudge .8s ease both';
@@ -198,10 +196,6 @@
   </script>
 </body>
 </html>
-
-
-
-
 
 
 
