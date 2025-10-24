@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,31 +64,32 @@
       animation:flashOut .55s ease-out forwards;}
     @keyframes flashOut{to{box-shadow:none;}}
 
-    /* Prova social com o ponto pulsante como “online” */
+    /* Prova social — pontinho dentro do texto */
     .micro-trust{
       font-size:13.5px;
       font-weight:700;
       color:#666;
-      margin:8px 0 10px 0;
+      margin:10px 0;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-      position:relative;
-      padding-left:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
     }
-    .micro-trust::before{
-      content:"";
-      position:absolute;left:0;top:50%;
-      width:8px;height:8px;border-radius:50%;
+    .live-dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
       background:#1fbf75;
-      transform:translateY(-50%);
       box-shadow:0 0 0 0 rgba(31,191,117,.55);
       animation:dotPulse 1.8s ease-out infinite;
     }
     @keyframes dotPulse{
-      0%{box-shadow:0 0 0 0 rgba(31,191,117,.55);}
-      70%{box-shadow:0 0 0 10px rgba(31,191,117,0);}
-      100%{box-shadow:0 0 0 0 rgba(31,191,117,0);}
+      0%  { box-shadow:0 0 0 0 rgba(31,191,117,.55); }
+      70% { box-shadow:0 0 0 10px rgba(31,191,117,0); }
+      100%{ box-shadow:0 0 0 0 rgba(31,191,117,0); }
     }
 
     .cta-btn{
@@ -146,7 +148,9 @@
     <div class="vacancy-top" id="vacancyText">Últimas vagas de hoje • Restam 24 👇</div>
     <div class="bar"><div class="fill" id="fillBar"></div></div>
 
-    <div class="micro-trust">+7.500 membros ativos · 🎯 1 clique · 🚫 Sem spam</div>
+    <div class="micro-trust">
+      <span class="live-dot"></span> +7.500 membros ativos · 🎯 1 clique · 🚫 Sem spam
+    </div>
 
     <button id="ctaMain" class="cta-btn">
       <span>ENTRAR GRÁTIS NO GRUPO</span>
@@ -194,6 +198,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
