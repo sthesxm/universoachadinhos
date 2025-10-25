@@ -14,8 +14,6 @@
   fbq('set', 'autoConfig', false, '734806152953802');
 
   /* ========= ANTI-DUP ========= */
-
-  // UUID simples para event_id (dedupe com CAPI, se usar no futuro)
   function uuidv4(){
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
       const r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
@@ -23,7 +21,7 @@
     });
   }
 
-  // PageView: dispara apenas 1x por sessão, ignora BFCache/prerender
+  // PageView: 1x por sessão, ignora BFCache/prerender
   (function sendPageViewOnce(){
     const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
     const isBFCache = nav && nav.type === 'back_forward';
@@ -36,178 +34,180 @@
     }
 
     if (document.prerendering) {
-      // Em algumas plataformas, páginas podem prerender: só dispara quando ficar visível
       document.addEventListener('prerenderingchange', () => { if (!isBFCache) firePV(); }, { once:true });
     } else {
       if (!isBFCache) firePV();
     }
   })();
 
-  /* ========= SUA LÓGICA ========= */
+  /* ========= TUDO QUE ENCOSTA NO DOM VEM DEPOIS DO DOM PRONTO ========= */
+  function boot(){
+    const WHATS_LINK="https://sndflw.com/i/universoachadinhos";
 
-  const WHATS_LINK="https://sndflw.com/i/universoachadinhos";
+    const START_VACANCIES=24, MIN_VACANCIES=2;
+    const feedEl = document.getElementById('feed');
+    const vacancyText = document.getElementById('vacancyText');
+    const fillBar = document.getElementById('fillBar');
 
-  const START_VACANCIES=24, MIN_VACANCIES=2;
-  const feedEl=document.getElementById('feed');
-  const vacancyText=document.getElementById('vacancyText');
-  const fillBar=document.getElementById('fillBar');
+    const NAMES_POOL=[
+      "Francisca Lacerda","Rosália Maria","Maria Júlia Souza","Ana Beatriz Nogueira","Josefa Almeida",
+      "Tereza Lemos","Joana Prado","Helena Barbosa","Cecília Andrade","Laura Pacheco","Clara Moreira",
+      "Isabel Figueira","Marta Azevedo","Aurora Fernandes","Olívia Castro","Beatriz Siqueira",
+      "Lúcia Nunes","Ester Carvalho","Camila Duarte","Regina Campos","Noêmia Teixeira","Paula Rezende",
+      "Marina Peixoto","Cristina Moura","Vitória Lopes","Sueli Brito","Rita Xavier","Elisa Cardoso",
+      "Lorena Ribeiro","Graça Monteiro","Helena Antunes","Patrícia Rocha","Juliana Costa","Madalena Correia",
+      "Adélia Vieira","Celina Pinto","Renata Tavares","Gabriela Melo","Sônia Gonçalves","Daniela Farias"
+    ];
+    function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+    let namesQueue=shuffle([...NAMES_POOL]);
 
-  const NAMES_POOL=[
-    "Francisca Lacerda","Rosália Maria","Maria Júlia Souza","Ana Beatriz Nogueira","Josefa Almeida",
-    "Tereza Lemos","Joana Prado","Helena Barbosa","Cecília Andrade","Laura Pacheco","Clara Moreira",
-    "Isabel Figueira","Marta Azevedo","Aurora Fernandes","Olívia Castro","Beatriz Siqueira",
-    "Lúcia Nunes","Ester Carvalho","Camila Duarte","Regina Campos","Noêmia Teixeira","Paula Rezende",
-    "Marina Peixoto","Cristina Moura","Vitória Lopes","Sueli Brito","Rita Xavier","Elisa Cardoso",
-    "Lorena Ribeiro","Graça Monteiro","Helena Antunes","Patrícia Rocha","Juliana Costa","Madalena Correia",
-    "Adélia Vieira","Celina Pinto","Renata Tavares","Gabriela Melo","Sônia Gonçalves","Daniela Farias"
-  ];
-  function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-  let namesQueue=shuffle([...NAMES_POOL]);
+    let currentVacancies = parseInt(localStorage.getItem("currentVacancies")) || START_VACANCIES;
+    function normalizeDateStr(d){return new Date(d.getFullYear(), d.getMonth(), d.getDate()).toDateString();}
+    const todayStr = normalizeDateStr(new Date());
+    const lastResetDate = localStorage.getItem("lastResetDate");
+    if (lastResetDate !== todayStr) { resetVacancies(); }
+    scheduleMidnightReset();
 
-  let currentVacancies = parseInt(localStorage.getItem("currentVacancies")) || START_VACANCIES;
-  function normalizeDateStr(d){return new Date(d.getFullYear(), d.getMonth(), d.getDate()).toDateString();}
-  const todayStr = normalizeDateStr(new Date());
-  const lastResetDate = localStorage.getItem("lastResetDate");
-  if (lastResetDate !== todayStr) { resetVacancies(); }
-  scheduleMidnightReset();
-
-  function resetVacancies(){
-    currentVacancies = START_VACANCIES;
-    localStorage.setItem("currentVacancies", currentVacancies);
-    localStorage.setItem("lastResetDate", normalizeDateStr(new Date()));
-    updateVacancyUI();
-  }
-  function scheduleMidnightReset(){
-    const now = new Date();
-    const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-    const msToMidnight = nextMidnight.getTime() - now.getTime();
-    setTimeout(() => {
-      resetVacancies();
-      setInterval(resetVacancies, 24*60*60*1000);
-    }, msToMidnight);
-  }
-  function updateVacancyUI(){
-    const prev = vacancyText.textContent;
-    vacancyText.textContent=`Últimas vagas de hoje • Restam ${currentVacancies} 👇`;
-    if(prev !== vacancyText.textContent){
-      vacancyText.style.transition = 'transform .12s ease';
-      vacancyText.style.transform = 'scale(1.08)';
-      setTimeout(()=>vacancyText.style.transform='scale(1)', 120);
+    function resetVacancies(){
+      currentVacancies = START_VACANCIES;
+      localStorage.setItem("currentVacancies", currentVacancies);
+      localStorage.setItem("lastResetDate", normalizeDateStr(new Date()));
+      updateVacancyUI();
     }
-    const filled=(START_VACANCIES-currentVacancies)/(START_VACANCIES-MIN_VACANCIES);
-    const pct=Math.max(0,Math.min(1,filled));
-    fillBar.style.inset=`0 ${(1-pct)*100}% 0 0`;
-  }
-  function step(){
-    if(currentVacancies<=MIN_VACANCIES) return;
-    if(namesQueue.length===0) namesQueue=shuffle([...NAMES_POOL]);
-    const name=namesQueue.shift();
-    pushNotification(name);
-    currentVacancies--;
-    localStorage.setItem("currentVacancies", currentVacancies);
-    updateVacancyUI();
-    if(currentVacancies>MIN_VACANCIES){
-      const nextMs=[1000,2000,3000][Math.floor(Math.random()*3)];
-      setTimeout(step,nextMs);
+    function scheduleMidnightReset(){
+      const now = new Date();
+      const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+      const msToMidnight = nextMidnight.getTime() - now.getTime();
+      setTimeout(() => {
+        resetVacancies();
+        setInterval(resetVacancies, 24*60*60*1000);
+      }, msToMidnight);
     }
-  }
-  function pushNotification(name){
-    const row=document.createElement('div');
-    row.className='notif';
-    row.innerHTML=`<div class="badge">✅</div><div><strong>${name}</strong> entrou no grupo</div>`;
-    if(feedEl.firstChild){ feedEl.insertBefore(row,feedEl.firstChild); }
-    else{ feedEl.appendChild(row); }
-    if(feedEl.children.length>3){ feedEl.removeChild(feedEl.lastChild); }
-  }
-
-  // Revela as vantagens ao rolar
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.style.transition='transform .4s ease, opacity .4s ease';
-        e.target.style.transform='translateY(0)';
-        e.target.style.opacity='1';
-        io.unobserve(e.target);
+    function updateVacancyUI(){
+      if (!vacancyText || !fillBar) return;
+      const prev = vacancyText.textContent;
+      vacancyText.textContent=`Últimas vagas de hoje • Restam ${currentVacancies} 👇`;
+      if(prev !== vacancyText.textContent){
+        vacancyText.style.transition = 'transform .12s ease';
+        vacancyText.style.transform = 'scale(1.08)';
+        setTimeout(()=>vacancyText.style.transform='scale(1)', 120);
       }
-    });
-  },{threshold:0.12});
-  document.querySelectorAll('.benefit').forEach(b=> io.observe(b));
-
-  /* ========= CLICK → LEAD (ANTI-DUP) ========= */
-
-  // Trava de 30s por sessão pra evitar 2 Leads (multi-toque, duplo clique, etc.)
-  const LEAD_LOCK_KEY = 'lead_lock_until';
-  let leadFiredFlag = false;
-
-  function canFireLead(){
-    const now = Date.now();
-    const lockUntil = parseInt(sessionStorage.getItem(LEAD_LOCK_KEY) || '0', 10);
-    return (!leadFiredFlag) && (now > lockUntil);
-  }
-  function setLeadLock(ms=30000){
-    sessionStorage.setItem(LEAD_LOCK_KEY, String(Date.now() + ms));
-  }
-
-  function trackLeadOnce(){
-    if (!canFireLead()) return null;
-    leadFiredFlag = true;
-    setLeadLock(30000);
-    const eventId = 'lead-' + uuidv4();
-    try { fbq('track','Lead',{ event_id: eventId }); } catch(e){}
-    return eventId;
-  }
-
-  function openWhatsAppSmart(){
-    // Dispara Lead apenas 1x (antes da navegação)
-    trackLeadOnce();
-
-    const ua = navigator.userAgent || '';
-    const isAndroid = /Android/i.test(ua);
-    const isIOS = /iPhone|iPad|iPod/i.test(ua);
-
-    // Navegação: evitar abrir duas janelas/abas
-    if (isAndroid) {
-      // Primeiro, tenta o link normal
-      window.location.href = WHATS_LINK;
-      // Pequeno fallback para Intent (caso o app esteja disponível)
-      setTimeout(()=>{ window.location.href = 'intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end'; }, 200);
-    } else if (isIOS) {
-      // iOS: tenta deep-link do app, depois cai pro link normal
-      window.location.href = 'whatsapp://';
-      setTimeout(()=>{ window.location.href = WHATS_LINK; }, 200);
-    } else {
-      // Desktop: só uma navegação
-      window.location.href = WHATS_LINK;
+      const filled=(START_VACANCIES-currentVacancies)/(START_VACANCIES-MIN_VACANCIES);
+      const pct=Math.max(0,Math.min(1,filled));
+      fillBar.style.inset=`0 ${(1-pct)*100}% 0 0`;
+    }
+    function step(){
+      if(currentVacancies<=MIN_VACANCIES) return;
+      if(namesQueue.length===0) namesQueue=shuffle([...NAMES_POOL]);
+      const name=namesQueue.shift();
+      pushNotification(name);
+      currentVacancies--;
+      localStorage.setItem("currentVacancies", currentVacancies);
+      updateVacancyUI();
+      if(currentVacancies>MIN_VACANCIES){
+        const nextMs=[1000,2000,3000][Math.floor(Math.random()*3)];
+        setTimeout(step,nextMs);
+      }
+    }
+    function pushNotification(name){
+      if(!feedEl) return;
+      const row=document.createElement('div');
+      row.className='notif';
+      row.innerHTML=`<div class="badge">✅</div><div><strong>${name}</strong> entrou no grupo</div>`;
+      if(feedEl.firstChild){ feedEl.insertBefore(row,feedEl.firstChild); }
+      else{ feedEl.appendChild(row); }
+      if(feedEl.children.length>3){ feedEl.removeChild(feedEl.lastChild); }
     }
 
-    // REMOVIDO: window.open(WHATS_LINK, '_blank') — causava navegação duplicada em alguns casos
-  }
+    // Reveal ao rolar
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.style.transition='transform .4s ease, opacity .4s ease';
+          e.target.style.transform='translateY(0)';
+          e.target.style.opacity='1';
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.benefit').forEach(b=> io.observe(b));
 
-  function handleClick(e){
-    const btn = e.currentTarget;
+    /* CLICK → LEAD (ANTI-DUP) */
+    const LEAD_LOCK_KEY = 'lead_lock_until';
+    let leadFiredFlag = false;
 
-    // Evitar duplo clique real no mesmo botão
-    if (btn.dataset.clicked === '1') return;
-    btn.dataset.clicked = '1';
+    function canFireLead(){
+      const now = Date.now();
+      const lockUntil = parseInt(sessionStorage.getItem(LEAD_LOCK_KEY) || '0', 10);
+      return (!leadFiredFlag) && (now > lockUntil);
+    }
+    function setLeadLock(ms=30000){
+      sessionStorage.setItem(LEAD_LOCK_KEY, String(Date.now() + ms));
+    }
+    function trackLeadOnce(){
+      if (!canFireLead()) return null;
+      leadFiredFlag = true;
+      setLeadLock(30000);
+      const eventId = 'lead-' + uuidv4();
+      try { fbq('track','Lead',{ event_id: eventId }); } catch(e){}
+      return eventId;
+    }
 
-    btn.classList.add('loading');
-    btn.setAttribute('disabled','true');
+    function openWhatsAppSmart(){
+      trackLeadOnce();
 
-    openWhatsAppSmart();
+      const ua = navigator.userAgent || '';
+      const isAndroid = /Android/i.test(ua);
+      const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
-    setTimeout(()=>{
-      btn.classList.remove('loading');
-      btn.removeAttribute('disabled');
-      // Libera o botão depois de um tempo (mas a trava do Lead continua por 30s)
-      btn.dataset.clicked = '0';
-    }, 4000);
-  }
+      if (isAndroid) {
+        window.location.href = WHATS_LINK;
+        setTimeout(()=>{ window.location.href = 'intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end'; }, 200);
+      } else if (isIOS) {
+        window.location.href = 'whatsapp://';
+        setTimeout(()=>{ window.location.href = WHATS_LINK; }, 200);
+      } else {
+        // Desktop: mantém tracking e dá chance do Web abrir
+        window.location.href = WHATS_LINK;
+        setTimeout(()=>{ window.location.href = 'https://web.whatsapp.com/'; }, 300);
+      }
+    }
 
-  document.getElementById('ctaMain').addEventListener('click', handleClick);
-  document.getElementById('ctaFooter').addEventListener('click', handleClick);
+    function handleClick(e){
+      const btn = e.currentTarget;
+      if (btn.dataset.clicked === '1') return;
+      btn.dataset.clicked = '1';
+      btn.classList.add('loading');
+      btn.setAttribute('disabled','true');
 
-  window.addEventListener('load', ()=>{
+      openWhatsAppSmart();
+
+      setTimeout(()=>{
+        btn.classList.remove('loading');
+        btn.removeAttribute('disabled');
+        btn.dataset.clicked = '0';
+      }, 4000);
+    }
+
+    // Só binda se os botões existirem
+    const btnMain   = document.getElementById('ctaMain');
+    const btnFooter = document.getElementById('ctaFooter');
+    if (btnMain)   btnMain.addEventListener('click', handleClick);
+    if (btnFooter) btnFooter.addEventListener('click', handleClick);
+
+    // UI inicial
     updateVacancyUI();
     if(currentVacancies>MIN_VACANCIES){ setTimeout(step,1000); }
-  });
+
+    // (Opcional): logs úteis no console para debug
+    // console.log('[LP] boot OK');
+  }
+
+  // Garante que o DOM exista antes de rodar o boot()
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once:true });
+  } else {
+    boot();
+  }
 </script>
+
