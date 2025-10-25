@@ -1,53 +1,313 @@
-<script>
-  /*! Meta Pixel base */
-  !function(f,b,e,v,n,t,s){
-    if(f.fbq) return;
-    n=f.fbq=function(){ n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments) };
-    if(!f._fbq) f._fbq=n;
-    n.push=n; n.loaded=!0; n.version='2.0';
-    n.queue=[];
-    t=b.createElement(e); t.async=!0; t.src=v;
-    s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);
-  }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Universo Promo e Achadinhos 💛🏠 | Entrar no Grupo</title>
+  <link rel="preconnect" href="https://sndflw.com" crossorigin>
+
+  <!-- Meta Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '734806152953802');
   fbq('set', 'autoConfig', false, '734806152953802');
+  fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel -->
 
-  /* ========= ANTI-DUP ========= */
-  function uuidv4(){
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-      const r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
-      return v.toString(16);
-    });
-  }
+  <style>
+    :root{
+      /* Gradiente principal (header e botões) */
+      --pink:#4d046e;       /* roxo */
+      --pink-dark:#8d004c;  /* rosa escuro */
 
-  // PageView: 1x por sessão, ignora BFCache/prerender
-  (function sendPageViewOnce(){
-    const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
-    const isBFCache = nav && nav.type === 'back_forward';
-    const PV_KEY = 'pv_sent:' + location.pathname + ':' + (new Date()).toDateString();
+      /* Barra de progresso (amarelo gema) */
+      --amber:#FFC107;
+      --amber-dark:#FFC107;
 
-    function firePV(){
-      if (sessionStorage.getItem(PV_KEY)) return;
-      sessionStorage.setItem(PV_KEY, '1');
-      try { fbq('track', 'PageView', { event_id: 'pv-' + uuidv4() }); } catch(e){}
+      --white:#ffffff;
+      --gray:#555;
+      --muted:#777;
+      --shadow:0 10px 25px rgba(0,0,0,.1);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      background:#fff;color:#222;padding-bottom:80px;
     }
 
-    if (document.prerendering) {
-      document.addEventListener('prerenderingchange', () => { if (!isBFCache) firePV(); }, { once:true });
-    } else {
-      if (!isBFCache) firePV();
+    header{
+      background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+      padding:18px 18px 22px;text-align:center;
+      border-radius:0 0 24px 24px;color:var(--white);
+      box-shadow:var(--shadow);
+      animation:hdrIn .6s ease both;
     }
-  })();
+    @keyframes hdrIn{
+      from{opacity:0; transform:translateY(-8px)}
+      to{opacity:1; transform:translateY(0)}
+    }
 
-  /* ========= TUDO QUE ENCOSTA NO DOM VEM DEPOIS DO DOM PRONTO ========= */
-  function boot(){
+    .logo-wrap{
+      width:120px;height:120px;margin:0 auto 10px;border-radius:50%;
+      background:#fff;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 8px 20px rgba(0,0,0,.2);overflow:hidden;
+    }
+    .logo-wrap img{
+      width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%;
+    }
+    h1{font-size:28px;font-weight:800;margin-bottom:4px;}
+    .subtitle{font-size:14px;color:#f1f1f1;margin-bottom:10px;}
+
+    /* Barra de vagas */
+    .cta-section{ text-align:center; margin:8px auto 0; padding:12px; max-width:700px; }
+    .vacancy-wrap{max-width:600px;margin:4px auto 10px;text-align:center;}
+    .vacancy-top{font-weight:800;font-size:16px;margin-bottom:6px;}
+    .bar{
+      width:100%;height:14px;background:#f9f9f9;
+      border:2px solid #eee;border-radius:999px;
+      position:relative;overflow:hidden;
+    }
+    .bar>.fill{
+      position:absolute;inset:0 100% 0 0;
+      background:var(--amber); /* amarelo gema sólido */
+      border-radius:999px;transition:inset .5s ease;
+      overflow:hidden;
+    }
+    .bar>.fill::after{
+      content:"";
+      position:absolute; top:0; bottom:0; left:-40%;
+      width:40%;
+      background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.4) 50%, transparent 100%);
+      transform:skewX(-20deg);
+      animation:barSheen 2.2s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes barSheen{
+      from{left:-40%}
+      to{left:110%}
+    }
+
+    /* Prova social — curta, suave e 1 linha */
+    .micro-trust{
+      font-size:13.5px;
+      font-weight:700;           /* menos pesado que 900 */
+      color:#666;                /* cinza mais leve */
+      margin:8px 0 10px 0;
+      white-space:nowrap;        /* mantém em uma linha no mobile */
+      overflow:hidden;
+      text-overflow:ellipsis;    /* se faltar espaço, coloca "..." */
+    }
+
+    /* CTA */
+    .cta-btn{
+      position:relative; overflow:hidden;
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 26px;width:100%;
+      border-radius:999px;font-weight:900;font-size:17px;letter-spacing:.2px;
+      background:linear-gradient(180deg,var(--pink),var(--pink-dark));
+      color:#fff;border:none;cursor:pointer;
+      animation:zoomInCta .5s ease both, pulse 1.6s ease-in-out infinite;
+      box-shadow:0 10px 25px rgba(141,0,76,.35);
+      transition:transform .12s ease, opacity .2s ease, filter .2s ease;
+    }
+    .cta-btn:hover{ filter:brightness(1.1); transform:scale(1.03); }
+
+    @keyframes zoomInCta{
+      from{transform:scale(0.9); opacity:0;}
+      to{transform:scale(1); opacity:1;}
+    }
+
+    .cta-btn::after{
+      content:"";
+      position:absolute; top:0; bottom:0; left:-20%;
+      width:20%;
+      background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.45) 50%, transparent 100%);
+      transform:skewX(-20deg);
+      animation:shine 3.5s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes shine{
+      0%,60%{left:-25%}
+      70%{left:110%}
+      100%{left:110%}
+    }
+
+    .cta-btn[disabled]{opacity:.7;cursor:not-allowed;animation:none}
+    .spinner{
+      width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;
+      display:none;animation:spin .7s linear infinite;
+    }
+    .cta-btn.loading .spinner{display:inline-block;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+
+    /* Efeito de sparkles (sutil) */
+    .cta-btn:hover::before,
+    .cta-btn:hover::after{
+      content:"✦";
+      position:absolute;
+      font-size:12px;
+      opacity:.9;
+      animation:spark 800ms ease-out forwards;
+    }
+    .cta-btn:hover::before{ left:18%; top:12%; }
+    .cta-btn:hover::after{ right:22%; bottom:18%; }
+    @keyframes spark{
+      0%{ transform:scale(.6); opacity:0; }
+      40%{ transform:scale(1.2); opacity:1; }
+      100%{ transform:scale(0.9) translateY(-6px); opacity:0; }
+    }
+
+    /* Trust-line discreta */
+    .trust-line{
+      font-size:12px;
+      color:#777;
+      margin-top:8px;
+      font-weight:600;
+    }
+
+    /* Feed */
+    .feed{
+      margin:16px auto 10px;max-width:500px;background:#f7f7f7;
+      border:1px solid #eaeaea;border-radius:14px;padding:10px;
+    }
+    .notif{
+      display:flex;align-items:center;gap:10px;background:#fff;padding:10px;border-radius:10px;
+      margin-bottom:8px;border:1px solid #eee;font-size:13.5px;font-weight:600;
+      opacity:0;transform:translateY(-16px);animation:slideDown .4s ease forwards;
+    }
+    .notif .badge{
+      background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.3);
+      color:#1e8e3e;font-weight:800;font-size:12px;padding:6px 8px;border-radius:999px;
+    }
+    @keyframes slideDown{to{opacity:1;transform:translateY(0);}}
+
+    /* Vantagens (reveal ao rolar) */
+    .benefits{max-width:700px;margin:6px auto;padding:0 12px;}
+    .benefit{
+      display:flex;align-items:center;gap:12px;
+      background:rgba(77,4,110,0.08);
+      border-radius:14px;padding:12px;margin-bottom:12px;
+      border:1px solid var(--pink);box-shadow:0 4px 10px rgba(0,0,0,0.05);
+      transform:translateY(10px); opacity:0;
+    }
+    .emojibox{
+      width:42px;height:42px;min-width:42px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(180deg,var(--pink),var(--pink-dark));
+      border-radius:10px;font-size:20px;color:#fff;
+    }
+    .benefit-text h4{font-size:16px;font-weight:800;margin-bottom:2px;}
+    .benefit-text p{font-size:13.5px;color:#777;margin:0;}
+
+    /* Rodapé fixo */
+    .sticky-footer{
+      position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
+      padding:10px 14px;box-shadow:0 -8px 20px rgba(0,0,0,.2);
+      display:flex;align-items:center;justify-content:space-between;z-index:50;
+    }
+    .sticky-footer div{font-weight:700; font-size:14px;}
+    .sticky-btn{
+      background:linear-gradient(180deg,var(--pink),var(--pink-dark));
+      color:#fff;border:none;border-radius:999px;padding:12px 20px;
+      font-weight:800;font-size:14px;cursor:pointer;
+      box-shadow:0 6px 16px rgba(141,0,76,.35);margin-left:8px;
+      animation:footPulse 6s ease-in-out infinite;
+      transition:filter .2s ease, transform .12s ease;
+    }
+    .sticky-btn:hover{ filter:brightness(1.06); transform:scale(1.02); }
+    @keyframes footPulse{
+      0%,92%,100%{transform:scale(1)}
+      95%{transform:scale(1.04)}
+      98%{transform:scale(1.06)}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{ animation: none !important; transition: none !important }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="https://i.postimg.cc/zXgQ7svW/Achadinhos.png" alt="Universo Promo e Achadinhos">
+    </div>
+    <h1>Universo Promo e Achadinhos 💛🏠</h1>
+    <div class="subtitle">As melhores promoções de casa, cozinha, beleza moda e mais no seu WhatsApp.</div>
+  </header>
+
+  <section class="cta-section">
+    <div class="vacancy-wrap">
+      <div class="vacancy-top"><span id="vacancyText">Últimas vagas de hoje • Restam 24 👇</span></div>
+      <div class="bar"><div class="fill" id="fillBar"></div></div>
+    </div>
+
+    <!-- Prova social — curta, suave e em uma linha -->
+    <div class="micro-trust">✅ +7.500 membros · 🎯 1 clique · 🚫 Sem spam</div>
+
+    <button id="ctaMain" class="cta-btn">
+      <span>ENTRAR GRÁTIS NO GRUPO</span>
+      <span class="spinner" aria-hidden="true"></span>
+    </button>
+
+    <p class="trust-line">🔒 100% seguro · Link oficial do grupo · Nenhum dado é solicitado</p>
+
+    <div class="feed" id="feed"></div>
+  </section>
+
+  <section class="benefits">
+    <div class="benefit">
+      <div class="emojibox">🔥</div>
+      <div class="benefit-text">
+        <h4>Descontos Insanos</h4>
+        <p>Produtos com até 70% OFF</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="emojibox">🎟</div>
+      <div class="benefit-text">
+        <h4>Cupons Exclusivos</h4>
+        <p>Só para membros do grupo</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="emojibox">👀</div>
+      <div class="benefit-text">
+        <h4>Itens em Alta</h4>
+        <p>Os mais desejados do momento</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="emojibox">✅</div>
+      <div class="benefit-text">
+        <h4>Ofertas Verificadas</h4>
+        <p>Promoções reais e testadas</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="sticky-footer">
+    <div>⏳ Últimas vagas de hoje</div>
+    <button id="ctaFooter" class="sticky-btn">Entrar no grupo</button>
+  </div>
+
+  <script>
     const WHATS_LINK="https://sndflw.com/i/universoachadinhos";
 
     const START_VACANCIES=24, MIN_VACANCIES=2;
-    const feedEl = document.getElementById('feed');
-    const vacancyText = document.getElementById('vacancyText');
-    const fillBar = document.getElementById('fillBar');
+    const feedEl=document.getElementById('feed');
+    const vacancyText=document.getElementById('vacancyText');
+    const fillBar=document.getElementById('fillBar');
 
     const NAMES_POOL=[
       "Francisca Lacerda","Rosália Maria","Maria Júlia Souza","Ana Beatriz Nogueira","Josefa Almeida",
@@ -84,7 +344,6 @@
       }, msToMidnight);
     }
     function updateVacancyUI(){
-      if (!vacancyText || !fillBar) return;
       const prev = vacancyText.textContent;
       vacancyText.textContent=`Últimas vagas de hoje • Restam ${currentVacancies} 👇`;
       if(prev !== vacancyText.textContent){
@@ -110,7 +369,6 @@
       }
     }
     function pushNotification(name){
-      if(!feedEl) return;
       const row=document.createElement('div');
       row.className='notif';
       row.innerHTML=`<div class="badge">✅</div><div><strong>${name}</strong> entrou no grupo</div>`;
@@ -119,7 +377,7 @@
       if(feedEl.children.length>3){ feedEl.removeChild(feedEl.lastChild); }
     }
 
-    // Reveal ao rolar
+    // Revela as vantagens ao rolar
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
@@ -132,82 +390,48 @@
     },{threshold:0.12});
     document.querySelectorAll('.benefit').forEach(b=> io.observe(b));
 
-    /* CLICK → LEAD (ANTI-DUP) */
-    const LEAD_LOCK_KEY = 'lead_lock_until';
-    let leadFiredFlag = false;
-
-    function canFireLead(){
-      const now = Date.now();
-      const lockUntil = parseInt(sessionStorage.getItem(LEAD_LOCK_KEY) || '0', 10);
-      return (!leadFiredFlag) && (now > lockUntil);
+    // Deep-link para WhatsApp + dedupe (se usar CAPI no futuro)
+    function uuidv4(){
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+      });
     }
-    function setLeadLock(ms=30000){
-      sessionStorage.setItem(LEAD_LOCK_KEY, String(Date.now() + ms));
-    }
-    function trackLeadOnce(){
-      if (!canFireLead()) return null;
-      leadFiredFlag = true;
-      setLeadLock(30000);
-      const eventId = 'lead-' + uuidv4();
-      try { fbq('track','Lead',{ event_id: eventId }); } catch(e){}
-      return eventId;
-    }
-
     function openWhatsAppSmart(){
-      trackLeadOnce();
+      const eventId = 'lead-' + uuidv4();
+      try{ fbq('track','Lead',{event_id: eventId}); }catch(e){}
 
       const ua = navigator.userAgent || '';
       const isAndroid = /Android/i.test(ua);
       const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
       if (isAndroid) {
+        const intentUrl = `intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end`;
         window.location.href = WHATS_LINK;
-        setTimeout(()=>{ window.location.href = 'intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end'; }, 200);
+        setTimeout(()=>{ window.location.href = intentUrl; }, 150);
       } else if (isIOS) {
         window.location.href = 'whatsapp://';
-        setTimeout(()=>{ window.location.href = WHATS_LINK; }, 200);
+        setTimeout(()=>{ window.location.href = WHATS_LINK; }, 150);
       } else {
-        // Desktop: mantém tracking e dá chance do Web abrir
         window.location.href = WHATS_LINK;
-        setTimeout(()=>{ window.location.href = 'https://web.whatsapp.com/'; }, 300);
       }
+      setTimeout(()=>{ window.open(WHATS_LINK, '_blank'); }, 1500);
     }
-
     function handleClick(e){
       const btn = e.currentTarget;
-      if (btn.dataset.clicked === '1') return;
-      btn.dataset.clicked = '1';
       btn.classList.add('loading');
       btn.setAttribute('disabled','true');
-
       openWhatsAppSmart();
-
-      setTimeout(()=>{
-        btn.classList.remove('loading');
-        btn.removeAttribute('disabled');
-        btn.dataset.clicked = '0';
-      }, 4000);
+      setTimeout(()=>{ btn.classList.remove('loading'); btn.removeAttribute('disabled'); }, 4000);
     }
 
-    // Só binda se os botões existirem
-    const btnMain   = document.getElementById('ctaMain');
-    const btnFooter = document.getElementById('ctaFooter');
-    if (btnMain)   btnMain.addEventListener('click', handleClick);
-    if (btnFooter) btnFooter.addEventListener('click', handleClick);
+    document.getElementById('ctaMain').addEventListener('click',handleClick);
+    document.getElementById('ctaFooter').addEventListener('click',handleClick);
 
-    // UI inicial
-    updateVacancyUI();
-    if(currentVacancies>MIN_VACANCIES){ setTimeout(step,1000); }
-
-    // (Opcional): logs úteis no console para debug
-    // console.log('[LP] boot OK');
-  }
-
-  // Garante que o DOM exista antes de rodar o boot()
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot, { once:true });
-  } else {
-    boot();
-  }
-</script>
-
+    window.addEventListener('load',()=>{
+      updateVacancyUI();
+      if(currentVacancies>MIN_VACANCIES){ setTimeout(step,1000); }
+    });
+  </script>
+</body>
+</html>// pode eliminar que os eventos se dupliquem nesse codigo,? aparece 2 page view e 2 leads
