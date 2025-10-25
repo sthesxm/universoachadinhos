@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Universo Promo e Achadinhos 💛🏠 | Entrar no Grupo</title>
+  <title>Promoção Máxima da Gê 💕🏠 | Entrar no Grupo</title>
 
   <!-- Meta Pixel -->
   <script>
@@ -15,185 +15,166 @@
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '734806152953802');
-  fbq('set', 'autoConfig', false, '734806152953802');
+
+  fbq('init', '3294037404094620');
+  fbq('set', 'autoConfig', false, '3294037404094620');
   fbq('track', 'PageView');
   </script>
   <!-- End Meta Pixel -->
 
   <style>
     :root{
-      --grad-start:#520082;   /* header + rodapé btn */
-      --grad-end:#8b0058;
-      --cta1-start:#ab07a4;   /* botão principal */
-      --cta1-end:#860155;
-      --amber:#FFC107;        /* barra vagas (amarelo gema) */
-      --white:#ffffff;
+      --pink:#ffc9c9;
+      --pink-dark:#ff9191;
+      --amber:#793032;
+      --text-main:#793032;
       --gray:#555;
       --muted:#777;
       --shadow:0 10px 25px rgba(0,0,0,.1);
+      --radius:18px;
+      --footer-bg:#793032;
+      --white:#ffffff;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff;color:#222;padding-bottom:80px;}
 
-    /* Header */
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      background:#fff;color:var(--text-main);
+      padding-bottom:80px;
+    }
+
     header{
-      background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
-      padding:18px;text-align:center;border-radius:0 0 24px 24px;color:var(--white);
+      background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+      padding:20px 20px 26px;
+      text-align:center;
+      border-radius:0 0 28px 28px;
+      color:var(--text-main);
       box-shadow:var(--shadow);
     }
-    .logo-wrap{width:120px;height:120px;margin:0 auto 10px;border-radius:50%;
+    .logo-wrap{
+      width:120px;height:120px;margin:0 auto 12px;border-radius:50%;
       background:#fff;display:flex;align-items:center;justify-content:center;
-      box-shadow:0 8px 20px rgba(0,0,0,.2);overflow:hidden;}
-    .logo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
-    h1{font-size:28px;font-weight:800;margin-bottom:4px;}
-    .subtitle{font-size:14px;color:#f1f1f1;margin-bottom:10px;}
+      box-shadow:0 8px 20px rgba(0,0,0,.2);overflow:hidden;
+    }
+    .logo-wrap img{
+      width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%;
+    }
+    h1{font-size:28px;font-weight:800;margin-bottom:6px;}
+    .subtitle{font-size:15px;color:var(--text-main);margin-bottom:10px;}
 
-    .cta-section{text-align:center;margin:8px auto 0;padding:12px;max-width:700px;}
-    .vacancy-top{font-weight:800;font-size:16px;margin-bottom:6px;}
-
-    /* Barra de vagas */
-    .bar{width:100%;height:14px;background:#f9f9f9;border:2px solid #eee;border-radius:999px;position:relative;overflow:hidden;}
-    .bar>.fill{position:absolute;inset:0 100% 0 0;background:var(--amber);border-radius:999px;transition:inset .5s ease;}
-    .bar>.fill.flash{box-shadow:0 0 0 0 rgba(255,193,7,.55),0 0 12px rgba(255,193,7,.8);animation:flashOut .55s ease-out forwards;}
-    @keyframes flashOut{to{box-shadow:none;}}
-
-    /* Prova social */
-    .micro-trust{
-      font-size:13.5px;font-weight:700;color:#666;margin:10px 0;
+    /* Vagas + prova social */
+    .vacancy-wrap{max-width:600px;margin:4px auto 4px;text-align:center;}
+    .vacancy-top{
+      font-weight:800;font-size:13px;margin-bottom:6px;color:#555;
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      display:flex;align-items:center;justify-content:center;gap:6px;
+      display:flex;align-items:center;justify-content:center;gap:6px;line-height:1.3;
     }
-    .live-dot{
-      width:8px;height:8px;border-radius:50%;
-      background:#1fbf75;box-shadow:0 0 0 0 rgba(31,191,117,.55);
-      animation:dotPulse 1.8s ease-out infinite;
+    .online-dot{
+      width:10px;height:10px;border-radius:50%;background:#1e8e3e;display:inline-block;
+      animation:pulseDot 1.2s infinite;
     }
-    @keyframes dotPulse{
-      0%{box-shadow:0 0 0 0 rgba(31,191,117,.55);}
-      70%{box-shadow:0 0 0 10px rgba(31,191,117,0);}
-      100%{box-shadow:0 0 0 0 rgba(31,191,117,0);}
+    @keyframes pulseDot{0%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}100%{transform:scale(1);opacity:1}}
+
+    .bar{
+      width:100%;height:10px;background:#f1f1f1;border:2px solid #ddd;border-radius:999px;position:relative;overflow:hidden;
+    }
+    .bar>.fill{
+      position:absolute;inset:0 100% 0 0;background:linear-gradient(90deg,#ffc107,#9d2e31);
+      border-radius:999px;transition:inset .5s ease;
     }
 
     /* CTA principal */
-    .cta-wrap{position:relative;display:inline-block;width:100%;}
+    .cta-section{text-align:center;margin:10px auto 0;padding:15px;max-width:700px;}
     .cta-btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      width:100%;padding:14px 26px;border-radius:999px;
-      font-weight:900;font-size:17px;color:#fff;
-      background:linear-gradient(180deg,var(--cta1-start),var(--cta1-end));
-      border:2px solid #520082;cursor:pointer;
-      box-shadow:0 10px 25px rgba(141,0,76,.35);
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      padding:16px 22px;width:100%;border-radius:999px;font-weight:800;font-size:18px;
+      background:linear-gradient(180deg,#ff7f7f,#9d2e31);
+      color:#fff;border:none;cursor:pointer;
       animation:pulse 1.6s ease-in-out infinite;
+      box-shadow:0 10px 25px rgba(255,145,145,.35);
       position:relative;overflow:hidden;
-      transition: transform .06s ease, box-shadow .06s ease;
+      text-align:center;
     }
-    .cta-btn.attn-halo::before{
-      content:"";position:absolute;inset:-4px;border-radius:999px;
-      border:2px solid rgba(82,0,130,.35);filter:blur(2px);
-      opacity:0;pointer-events:none;animation:haloPop 7s ease-in-out infinite;
-    }
-    @keyframes haloPop{
-      0%,92%{opacity:0;transform:scale(1)}
-      94%{opacity:1;transform:scale(1.03)}
-      100%{opacity:0;transform:scale(1.08)}
-    }
-    .cta-btn::after{
-      content:"";position:absolute;top:0;bottom:0;left:-20%;
-      width:20%;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.45) 50%,transparent 100%);
-      transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite;
-    }
-    @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
-    @keyframes shine{0%,60%{left:-25%}70%{left:110%}100%{left:110%}}
-    .cta-btn:active{transform:translateY(1px) scale(.99);box-shadow:0 6px 16px rgba(0,0,0,.25);}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 
-    /* Setas modernas (SVG “gordinhas”) */
-    .cta-icon{
-      width:26px;height:26px;flex:0 0 26px;display:inline-flex;align-items:center;justify-content:center;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,.35));
+    /* SETAS GRANDES, MODERNAS (SVG) */
+    .svg-arrow{
+      width:34px; height:24px; /* tamanho “gordinho” */
+      flex:0 0 auto;
+      filter: drop-shadow(0 1px 0 rgba(0,0,0,.15));
     }
-    .cta-icon svg{width:100%;height:100%;}
-    .cta-icon path{
-      stroke:#fff;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round;fill:none;
-    }
-    .cta-icon.left{animation:arrowInLeft 1.5s ease-in-out infinite;}
-    .cta-icon.right{animation:arrowInRight 1.5s ease-in-out infinite;}
+    .svg-arrow path{ fill:#ffffff; }
 
-    @keyframes arrowInLeft{
-      0%,60%,100%{transform:translateX(0);opacity:1;}
-      70%{transform:translateX(4px);opacity:.95;}
+    .svg-arrow.left{ animation:nudgeRight 1.4s ease-in-out infinite; }
+    .svg-arrow.right{ transform:scaleX(-1); animation:nudgeLeft 1.4s ease-in-out infinite; }
+
+    @keyframes nudgeRight{
+      0%,100%{ transform:translateX(0) }
+      50%{ transform:translateX(5px) }
     }
-    @keyframes arrowInRight{
-      0%,60%,100%{transform:translateX(0);opacity:1;}
-      70%{transform:translateX(-4px);opacity:.95;}
+    @keyframes nudgeLeft{
+      0%,100%{ transform:scaleX(-1) translateX(0) }
+      50%{ transform:scaleX(-1) translateX(5px) }
     }
 
-    .trust-line{font-size:12px;color:#777;margin-top:8px;font-weight:600;}
-    .feed{margin:16px auto 10px;max-width:500px;background:#f7f7f7;
-      border:1px solid #eaeaea;border-radius:14px;padding:10px;}
+    @media (max-width:420px){
+      .cta-btn{font-size:16px;padding:14px 18px}
+      .svg-arrow{width:30px;height:22px}
+    }
 
-    /* Rodapé */
+    /* Rodapé fixo */
     .sticky-footer{
-      position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
-      padding:10px 14px;box-shadow:0 -8px 20px rgba(0,0,0,.25);
+      position:fixed;bottom:0;left:0;right:0;background:var(--footer-bg);color:var(--white);
+      padding:12px 16px;box-shadow:0 -8px 20px rgba(0,0,0,.2);
       display:flex;align-items:center;justify-content:space-between;z-index:50;
     }
+    .sticky-footer div{font-weight:700;}
     .sticky-btn{
-      background:linear-gradient(180deg,var(--grad-start),var(--grad-end));
-      color:#fff;border:none;border-radius:999px;padding:12px 20px;
-      font-weight:800;font-size:14px;cursor:pointer;
-      box-shadow:0 6px 16px rgba(0,0,0,.3);
-      animation:footPulse 6s ease-in-out infinite;
+      background:linear-gradient(180deg,var(--pink),var(--pink-dark));
+      color:var(--text-main);border:none;border-radius:999px;padding:14px 26px;
+      font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 6px 16px rgba(255,145,145,.35);margin-left:10px;
     }
-    @keyframes footPulse{
-      0%,92%,100%{transform:scale(1)}
-      95%{transform:scale(1.04)}
-      98%{transform:scale(1.06)}
+
+    /* Respeita redução de movimento */
+    @media (prefers-reduced-motion: reduce){
+      .cta-btn, .svg-arrow.left, .svg-arrow.right, .online-dot{ animation: none !important }
     }
   </style>
 </head>
-
 <body>
   <header>
     <div class="logo-wrap">
-      <img src="https://i.postimg.cc/zXgQ7svW/Achadinhos.png" alt="Universo Promo e Achadinhos">
+      <img src="https://i.postimg.cc/tR6jwS7T/IMG-20251009-WA1548.jpg" alt="Promoção Máxima da Gê">
     </div>
-    <h1>Universo Promo e Achadinhos 💛🏠</h1>
+    <h1>Promoção Máxima da Gê 💕🏠</h1>
     <div class="subtitle">As melhores promoções de casa, cozinha, beleza moda e mais no seu WhatsApp.</div>
   </header>
 
   <section class="cta-section">
-    <div class="vacancy-top" id="vacancyText">Últimas vagas de hoje • Restam 24 👇</div>
-    <div class="bar"><div class="fill" id="fillBar"></div></div>
-
-    <div class="micro-trust">
-      <span class="live-dot"></span> +7.500 membros ativos · 🎯 1 clique · 🚫 Sem spam
+    <div class="vacancy-wrap">
+      <div class="vacancy-top">
+        <span class="online-dot"></span>+7.500 membros ativos · 🎯 1 clique · 🚫 Sem spam · ⏱️ Saia quando quiser
+      </div>
+      <div class="bar"><div class="fill" id="fillBar"></div></div>
     </div>
 
-    <div class="cta-wrap">
-      <button id="ctaMain" class="cta-btn attn-halo">
-        <!-- seta moderna (direita) apontando para o centro -->
-        <span class="cta-icon left" aria-hidden="true">
-          <!-- chevron “gordinho” para a direita -->
-          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-            <path d="M8 4 L16 12 L8 20" />
-          </svg>
-        </span>
+    <!-- BOTÃO PRINCIPAL com SETAS GRANDES SVG -->
+    <button id="ctaMain" class="cta-btn" aria-label="Entrar grátis no grupo">
+      <!-- seta esquerda (apontando para dentro) -->
+      <svg class="svg-arrow left" viewBox="0 0 60 40" aria-hidden="true">
+        <!-- duas peças formam a seta gordinha com “entalhe”, estilo da imagem -->
+        <path d="M2 6 L28 20 L2 34 Z"></path>
+        <path d="M22 6 L58 20 L22 34 Z"></path>
+      </svg>
 
-        <span>ENTRAR GRÁTIS NO GRUPO</span>
+      <span>ENTRAR GRÁTIS NO GRUPO</span>
 
-        <!-- seta moderna (esquerda) apontando para o centro -->
-        <span class="cta-icon right" aria-hidden="true">
-          <!-- chevron “gordinho” para a esquerda -->
-          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-            <path d="M16 4 L8 12 L16 20" />
-          </svg>
-        </span>
-      </button>
-    </div>
-
-    <p class="trust-line">🔒 100% seguro · Link oficial do grupo · Nenhum dado é solicitado</p>
-    <div class="feed" id="feed"></div>
+      <!-- seta direita (espelhada, apontando para dentro) -->
+      <svg class="svg-arrow right" viewBox="0 0 60 40" aria-hidden="true">
+        <path d="M2 6 L28 20 L2 34 Z"></path>
+        <path d="M22 6 L58 20 L22 34 Z"></path>
+      </svg>
+    </button>
   </section>
 
   <div class="sticky-footer">
@@ -202,30 +183,59 @@
   </div>
 
   <script>
-    const WHATS_LINK="https://sndflw.com/i/universoachadinhos";
+    const WHATS_LINK="https://sndflw.com/i/promocaomaximage";
     const START_VACANCIES=24, MIN_VACANCIES=2;
-    const vacancyText=document.getElementById('vacancyText');
     const fillBar=document.getElementById('fillBar');
 
-    let currentVacancies=parseInt(localStorage.getItem("currentVacancies"))||START_VACANCIES;
+    let currentVacancies = parseInt(localStorage.getItem("currentVacancies")) || START_VACANCIES;
+    function normalizeDateStr(d){return new Date(d.getFullYear(), d.getMonth(), d.getDate()).toDateString();}
+    const todayStr = normalizeDateStr(new Date());
+    const lastResetDate = localStorage.getItem("lastResetDate");
+    if (lastResetDate !== todayStr) { resetVacancies(); }
+    scheduleMidnightReset();
 
+    function resetVacancies(){
+      currentVacancies = START_VACANCIES;
+      localStorage.setItem("currentVacancies", currentVacancies);
+      localStorage.setItem("lastResetDate", normalizeDateStr(new Date()));
+      updateVacancyUI();
+    }
+    function scheduleMidnightReset(){
+      const now = new Date();
+      const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+      const msToMidnight = nextMidnight.getTime() - now.getTime();
+      setTimeout(() => {
+        resetVacancies();
+        setInterval(resetVacancies, 24*60*60*1000);
+      }, msToMidnight);
+    }
     function updateVacancyUI(){
-      vacancyText.textContent=`Últimas vagas de hoje • Restam ${currentVacancies} 👇`;
       const filled=(START_VACANCIES-currentVacancies)/(START_VACANCIES-MIN_VACANCIES);
       const pct=Math.max(0,Math.min(1,filled));
       fillBar.style.inset=`0 ${(1-pct)*100}% 0 0`;
-      fillBar.classList.remove('flash');void fillBar.offsetWidth;fillBar.classList.add('flash');
     }
-
+    function step(){
+      if(currentVacancies<=MIN_VACANCIES) return;
+      currentVacancies--;
+      localStorage.setItem("currentVacancies", currentVacancies);
+      updateVacancyUI();
+      if(currentVacancies>MIN_VACANCIES){
+        const nextMs=[1000,2000,3000][Math.floor(Math.random()*3)];
+        setTimeout(step,nextMs);
+      }
+    }
     function handleClick(){
       if('vibrate' in navigator) navigator.vibrate(15);
       try{ fbq('track','Lead'); }catch(e){}
       setTimeout(()=>{ window.open(WHATS_LINK,'_blank'); },500);
     }
-
     document.getElementById('ctaMain').addEventListener('click',handleClick);
     document.getElementById('ctaFooter').addEventListener('click',handleClick);
-    window.addEventListener('load',()=>updateVacancyUI());
+
+    window.addEventListener('load',()=>{
+      updateVacancyUI();
+      if(currentVacancies>MIN_VACANCIES){ setTimeout(step,1000); }
+    });
   </script>
 </body>
 </html>
