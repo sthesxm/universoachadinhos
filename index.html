@@ -23,11 +23,11 @@
 
   <style>
     :root{
-      --grad-start:#520082;
+      --grad-start:#520082;   /* header + rodapé btn */
       --grad-end:#8b0058;
-      --cta1-start:#ab07a4;
+      --cta1-start:#ab07a4;   /* botão principal */
       --cta1-end:#860155;
-      --amber:#FFC107;
+      --amber:#FFC107;        /* barra vagas (amarelo gema) */
       --white:#ffffff;
       --gray:#555;
       --muted:#777;
@@ -36,6 +36,7 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff;color:#222;padding-bottom:80px;}
 
+    /* Header */
     header{
       background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
       padding:18px;text-align:center;border-radius:0 0 24px 24px;color:var(--white);
@@ -51,11 +52,13 @@
     .cta-section{text-align:center;margin:8px auto 0;padding:12px;max-width:700px;}
     .vacancy-top{font-weight:800;font-size:16px;margin-bottom:6px;}
 
+    /* Barra de vagas */
     .bar{width:100%;height:14px;background:#f9f9f9;border:2px solid #eee;border-radius:999px;position:relative;overflow:hidden;}
     .bar>.fill{position:absolute;inset:0 100% 0 0;background:var(--amber);border-radius:999px;transition:inset .5s ease;}
     .bar>.fill.flash{box-shadow:0 0 0 0 rgba(255,193,7,.55),0 0 12px rgba(255,193,7,.8);animation:flashOut .55s ease-out forwards;}
     @keyframes flashOut{to{box-shadow:none;}}
 
+    /* Prova social */
     .micro-trust{
       font-size:13.5px;font-weight:700;color:#666;margin:10px 0;
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
@@ -72,9 +75,10 @@
       100%{box-shadow:0 0 0 0 rgba(31,191,117,0);}
     }
 
+    /* CTA principal */
     .cta-wrap{position:relative;display:inline-block;width:100%;}
     .cta-btn{
-      display:inline-flex;align-items:center;justify-content:center;
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
       width:100%;padding:14px 26px;border-radius:999px;
       font-weight:900;font-size:17px;color:#fff;
       background:linear-gradient(180deg,var(--cta1-start),var(--cta1-end));
@@ -87,8 +91,7 @@
     .cta-btn.attn-halo::before{
       content:"";position:absolute;inset:-4px;border-radius:999px;
       border:2px solid rgba(82,0,130,.35);filter:blur(2px);
-      opacity:0;pointer-events:none;
-      animation:haloPop 7s ease-in-out infinite;
+      opacity:0;pointer-events:none;animation:haloPop 7s ease-in-out infinite;
     }
     @keyframes haloPop{
       0%,92%{opacity:0;transform:scale(1)}
@@ -104,31 +107,32 @@
     @keyframes shine{0%,60%{left:-25%}70%{left:110%}100%{left:110%}}
     .cta-btn:active{transform:translateY(1px) scale(.99);box-shadow:0 6px 16px rgba(0,0,0,.25);}
 
-    /* === SETAS MAIORES === */
-    .cta-arrow{
-      display:inline-block;
-      font-size:26px; /* maior para mais destaque */
-      color:rgba(255,255,255,0.95);
-      font-weight:900;
-      animation-duration:1.5s;
-      animation-timing-function:ease-in-out;
-      animation-iteration-count:infinite;
+    /* Setas modernas (SVG “gordinhas”) */
+    .cta-icon{
+      width:26px;height:26px;flex:0 0 26px;display:inline-flex;align-items:center;justify-content:center;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,.35));
     }
-    .cta-arrow.left{margin-right:12px;animation-name:arrowInLeft;}
-    .cta-arrow.right{margin-left:12px;animation-name:arrowInRight;}
+    .cta-icon svg{width:100%;height:100%;}
+    .cta-icon path{
+      stroke:#fff;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round;fill:none;
+    }
+    .cta-icon.left{animation:arrowInLeft 1.5s ease-in-out infinite;}
+    .cta-icon.right{animation:arrowInRight 1.5s ease-in-out infinite;}
+
     @keyframes arrowInLeft{
       0%,60%,100%{transform:translateX(0);opacity:1;}
-      70%{transform:translateX(4px);opacity:.85;}
+      70%{transform:translateX(4px);opacity:.95;}
     }
     @keyframes arrowInRight{
       0%,60%,100%{transform:translateX(0);opacity:1;}
-      70%{transform:translateX(-4px);opacity:.85;}
+      70%{transform:translateX(-4px);opacity:.95;}
     }
 
     .trust-line{font-size:12px;color:#777;margin-top:8px;font-weight:600;}
     .feed{margin:16px auto 10px;max-width:500px;background:#f7f7f7;
       border:1px solid #eaeaea;border-radius:14px;padding:10px;}
 
+    /* Rodapé */
     .sticky-footer{
       position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
       padding:10px 14px;box-shadow:0 -8px 20px rgba(0,0,0,.25);
@@ -168,9 +172,23 @@
 
     <div class="cta-wrap">
       <button id="ctaMain" class="cta-btn attn-halo">
-        <span class="cta-arrow left">→</span>
+        <!-- seta moderna (direita) apontando para o centro -->
+        <span class="cta-icon left" aria-hidden="true">
+          <!-- chevron “gordinho” para a direita -->
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <path d="M8 4 L16 12 L8 20" />
+          </svg>
+        </span>
+
         <span>ENTRAR GRÁTIS NO GRUPO</span>
-        <span class="cta-arrow right">←</span>
+
+        <!-- seta moderna (esquerda) apontando para o centro -->
+        <span class="cta-icon right" aria-hidden="true">
+          <!-- chevron “gordinho” para a esquerda -->
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <path d="M16 4 L8 12 L16 20" />
+          </svg>
+        </span>
       </button>
     </div>
 
@@ -190,6 +208,7 @@
     const fillBar=document.getElementById('fillBar');
 
     let currentVacancies=parseInt(localStorage.getItem("currentVacancies"))||START_VACANCIES;
+
     function updateVacancyUI(){
       vacancyText.textContent=`Últimas vagas de hoje • Restam ${currentVacancies} 👇`;
       const filled=(START_VACANCIES-currentVacancies)/(START_VACANCIES-MIN_VACANCIES);
@@ -197,15 +216,16 @@
       fillBar.style.inset=`0 ${(1-pct)*100}% 0 0`;
       fillBar.classList.remove('flash');void fillBar.offsetWidth;fillBar.classList.add('flash');
     }
+
     function handleClick(){
       if('vibrate' in navigator) navigator.vibrate(15);
       try{ fbq('track','Lead'); }catch(e){}
       setTimeout(()=>{ window.open(WHATS_LINK,'_blank'); },500);
     }
+
     document.getElementById('ctaMain').addEventListener('click',handleClick);
     document.getElementById('ctaFooter').addEventListener('click',handleClick);
     window.addEventListener('load',()=>updateVacancyUI());
   </script>
 </body>
 </html>
-
