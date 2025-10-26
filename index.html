@@ -7,7 +7,7 @@
   <title>Universo Promo e Achadinhos 💛🏠 | Entrar no Grupo</title>
   <link rel="preconnect" href="https://sndflw.com" crossorigin>
 
-  <!-- Meta Pixel (dedupe PageView 1x por sessão) -->
+  <!-- Meta Pixel (dedupe PageView 1x por sessão + Advanced Matching) -->
   <script>
   !function(f,b,e,v,n,t,s){
     if(f.fbq) return;
@@ -19,26 +19,41 @@
     s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);
   }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-  fbq('init', '734806152953802');
-  fbq('set', 'autoConfig', false, '734806152953802');
+  (function initPixelWithAdvancedMatching(){
+    var PIXEL_ID = '734806152953802';
+
+    function getParamOrStorage(key, storageKey){
+      var params = new URLSearchParams(location.search);
+      return params.get(key) || localStorage.getItem(storageKey || key) || '';
+    }
+    function normEmail(v){
+      return (v||'').toString().trim().toLowerCase();
+    }
+    function normPhone(v){
+      return (v||'').toString().replace(/\D+/g,''); // só dígitos
+    }
+
+    try{
+      var em = normEmail(getParamOrStorage('em','am_em'));
+      var ph = normPhone(getParamOrStorage('ph','am_ph'));
+
+      var advMatch = {};
+      if (em) advMatch.em = em; // Pixel hasheia em SHA-256 automaticamente
+      if (ph) advMatch.ph = ph;
+
+      fbq('init', PIXEL_ID, advMatch);
+      fbq('set', 'autoConfig', false, PIXEL_ID);
+    }catch(e){
+      // Fallback sem AM se algo falhar
+      fbq('init', PIXEL_ID);
+      fbq('set', 'autoConfig', false, PIXEL_ID);
+    }
+  })();
 
   (function sendPageViewOnce(){
     var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
     var isBFCache = nav && nav.type === 'back_forward';
     var PV_KEY = 'pv_sent:' + location.pathname + ':' + (new Date()).toDateString();
-
-    function firePV(){
-      if (sessionStorage.getItem(PV_KEY)) return;
-      sessionStorage.setItem(PV_KEY, '1');
-      try { fbq('track','PageView',{ event_id: 'pv-' + cryptoRandomId() }); } catch(e){}
-    }
-    if (document.prerendering) {
-      document.addEventListener('prerenderingchange', function(){
-        if (!isBFCache) firePV();
-      }, { once:true });
-    } else {
-      if (!isBFCache) firePV();
-    }
 
     function cryptoRandomId(){
       var a = (self.crypto||{}).getRandomValues ? crypto.getRandomValues(new Uint8Array(16)) : Array.from({length:16},()=>Math.random()*256|0);
@@ -46,6 +61,20 @@
       a[8] = (a[8] & 0x3f) | 0x80; // variant
       var h = Array.from(a, b=>('0'+b.toString(16)).slice(-2)).join('');
       return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20);
+    }
+
+    function firePV(){
+      if (sessionStorage.getItem(PV_KEY)) return;
+      sessionStorage.setItem(PV_KEY, '1');
+      try { fbq('track','PageView',{ event_id: 'pv-' + cryptoRandomId() }); } catch(e){}
+    }
+
+    if (document.prerendering) {
+      document.addEventListener('prerenderingchange', function(){
+        if (!isBFCache) firePV();
+      }, { once:true });
+    } else {
+      if (!isBFCache) firePV();
     }
   })();
   </script>
@@ -374,3 +403,4 @@
   </script>
 </body>
 </html>
+
