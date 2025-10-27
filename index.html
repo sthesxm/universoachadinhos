@@ -7,7 +7,7 @@
   <title>Universo Promo e Achadinhos 💛🏠 | Entrar no Grupo</title>
   <link rel="preconnect" href="https://sndflw.com" crossorigin>
 
-  <!-- Meta Pixel (dedupe PageView 1x por sessão + Advanced Matching) -->
+  <!-- Meta Pixel (dedupe PageView + Advanced Matching Manual) -->
   <script>
   !function(f,b,e,v,n,t,s){
     if(f.fbq) return;
@@ -117,7 +117,7 @@
       background:linear-gradient(180deg,var(--pink),var(--pink-dark));color:#fff;border:none;cursor:pointer;
       animation:zoomInCta .5s ease both,pulse 1.6s ease-in-out infinite;
       box-shadow:0 10px 25px rgba(141,0,76,.35);
-      white-space:nowrap; /* mantém o texto em uma linha */
+      white-space:nowrap;
     }
     .cta-btn::after{content:"";position:absolute;top:0;bottom:0;left:-20%;width:20%;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.45) 50%,transparent 100%);transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite;}
     @keyframes shine{0%,60%{left:-25%}70%,100%{left:110%}}
@@ -184,7 +184,7 @@
     <button id="ctaFooter" class="sticky-btn" type="button">Entrar no grupo</button>
   </div>
 
-  <!-- Script principal -->
+  <!-- Script principal com Lead garantido -->
   <script>
     function uuidv4(){
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
@@ -193,21 +193,25 @@
       });
     }
 
+    function waitForPixelReady(maxMs = 1200){
+      return new Promise(resolve => {
+        const started = Date.now();
+        (function tick(){
+          if (window.fbq && fbq.loaded) return resolve(true);
+          if (Date.now() - started >= maxMs) return resolve(false);
+          setTimeout(tick, 50);
+        })();
+      });
+    }
+
     function boot(){
       const WHATS_LINK = "https://sndflw.com/i/universoachadinhos";
-
-      const START_VACANCIES=24, MIN_VACANCIES=2;
-      const feedEl=document.getElementById('feed');
+      const START_VACANCIES=24;
       const vacancyText=document.getElementById('vacancyText');
       const fillBar=document.getElementById('fillBar');
+      vacancyText.textContent=`Últimas vagas de hoje • Restam ${START_VACANCIES} 👇`;
+      fillBar.style.inset="0 0 0 0";
 
-      function updateVacancyUI(){
-        vacancyText.textContent=`Últimas vagas de hoje • Restam ${START_VACANCIES} 👇`;
-        fillBar.style.inset="0 0 0 0";
-      }
-      updateVacancyUI();
-
-      // 🔒 Anti-duplicação de Lead por 30s (sessão) + envio com event_id
       const LEAD_LOCK_KEY = 'lead_lock_until';
       function canFireLead(){
         const now = Date.now();
@@ -225,20 +229,18 @@
         return eventId;
       }
 
-      function handleClick(e){
+      async function handleClick(e){
         const btn = e.currentTarget;
         if (btn.dataset.clicked === '1') return;
         btn.dataset.clicked = '1';
         btn.classList.add('loading');
         btn.setAttribute('disabled','true');
 
-        // ✅ dispara LEAD antes do redirect
+        const pixelReady = await waitForPixelReady(1200);
         trackLeadOnce();
+        const delayMs = pixelReady ? 250 : 900;
 
-        // ⏳ pequeno delay para garantir o envio do evento
-        setTimeout(()=>{
-          window.location.assign(WHATS_LINK);
-        }, 250);
+        setTimeout(()=>{ window.location.assign(WHATS_LINK); }, delayMs);
 
         setTimeout(()=>{
           btn.classList.remove('loading');
