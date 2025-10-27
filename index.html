@@ -117,6 +117,7 @@
       background:linear-gradient(180deg,var(--pink),var(--pink-dark));color:#fff;border:none;cursor:pointer;
       animation:zoomInCta .5s ease both,pulse 1.6s ease-in-out infinite;
       box-shadow:0 10px 25px rgba(141,0,76,.35);
+      white-space:nowrap; /* mantém o texto em uma linha */
     }
     .cta-btn::after{content:"";position:absolute;top:0;bottom:0;left:-20%;width:20%;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.45) 50%,transparent 100%);transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite;}
     @keyframes shine{0%,60%{left:-25%}70%,100%{left:110%}}
@@ -206,6 +207,24 @@
       }
       updateVacancyUI();
 
+      // 🔒 Anti-duplicação de Lead por 30s (sessão) + envio com event_id
+      const LEAD_LOCK_KEY = 'lead_lock_until';
+      function canFireLead(){
+        const now = Date.now();
+        const lockUntil = parseInt(sessionStorage.getItem(LEAD_LOCK_KEY) || '0', 10);
+        return now > lockUntil;
+      }
+      function setLeadLock(ms=30000){
+        sessionStorage.setItem(LEAD_LOCK_KEY, String(Date.now() + ms));
+      }
+      function trackLeadOnce(){
+        if (!canFireLead()) return null;
+        setLeadLock(30000);
+        const eventId = 'lead-' + uuidv4();
+        try { fbq('track','Lead',{ event_id: eventId }); } catch(e){}
+        return eventId;
+      }
+
       function handleClick(e){
         const btn = e.currentTarget;
         if (btn.dataset.clicked === '1') return;
@@ -213,7 +232,13 @@
         btn.classList.add('loading');
         btn.setAttribute('disabled','true');
 
-        window.location.assign(WHATS_LINK); // ✅ Redireciona corretamente
+        // ✅ dispara LEAD antes do redirect
+        trackLeadOnce();
+
+        // ⏳ pequeno delay para garantir o envio do evento
+        setTimeout(()=>{
+          window.location.assign(WHATS_LINK);
+        }, 250);
 
         setTimeout(()=>{
           btn.classList.remove('loading');
@@ -240,3 +265,4 @@
   </noscript>
 </body>
 </html>
+
