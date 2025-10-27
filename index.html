@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Universo Promo e Achadinhos 💛🏠 | Entrar no Grupo</title>
-  <link rel="preconnect" href="https://sndflw.com/i/universoachadinhos" crossorigin>
+  <link rel="preconnect" href="https://sndflw.com" crossorigin>
 
   <!-- Meta Pixel (dedupe PageView 1x por sessão + Advanced Matching) -->
   <script>
@@ -26,25 +26,20 @@
       var params = new URLSearchParams(location.search);
       return params.get(key) || localStorage.getItem(storageKey || key) || '';
     }
-    function normEmail(v){
-      return (v||'').toString().trim().toLowerCase();
-    }
-    function normPhone(v){
-      return (v||'').toString().replace(/\D+/g,''); // só dígitos
-    }
+    function normEmail(v){ return (v||'').toString().trim().toLowerCase(); }
+    function normPhone(v){ return (v||'').toString().replace(/\D+/g,''); }
 
     try{
       var em = normEmail(getParamOrStorage('em','am_em'));
       var ph = normPhone(getParamOrStorage('ph','am_ph'));
 
       var advMatch = {};
-      if (em) advMatch.em = em; // Pixel hasheia em SHA-256 automaticamente
+      if (em) advMatch.em = em;
       if (ph) advMatch.ph = ph;
 
       fbq('init', PIXEL_ID, advMatch);
       fbq('set', 'autoConfig', false, PIXEL_ID);
     }catch(e){
-      // Fallback sem AM se algo falhar
       fbq('init', PIXEL_ID);
       fbq('set', 'autoConfig', false, PIXEL_ID);
     }
@@ -57,8 +52,8 @@
 
     function cryptoRandomId(){
       var a = (self.crypto||{}).getRandomValues ? crypto.getRandomValues(new Uint8Array(16)) : Array.from({length:16},()=>Math.random()*256|0);
-      a[6] = (a[6] & 0x0f) | 0x40; // v4
-      a[8] = (a[8] & 0x3f) | 0x80; // variant
+      a[6] = (a[6] & 0x0f) | 0x40;
+      a[8] = (a[8] & 0x3f) | 0x80;
       var h = Array.from(a, b=>('0'+b.toString(16)).slice(-2)).join('');
       return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20);
     }
@@ -82,9 +77,9 @@
 
   <style>
     :root{
-      --pink:#4d046e;       /* roxo (gradiente topo/CTA) */
-      --pink-dark:#8d004c;  /* rosa escuro */
-      --amber:#FFC107;      /* barra/progresso */
+      --pink:#4d046e;
+      --pink-dark:#8d004c;
+      --amber:#FFC107;
       --white:#ffffff;
       --gray:#555; --muted:#777;
       --shadow:0 10px 25px rgba(0,0,0,.1);
@@ -106,35 +101,30 @@
     h1{font-size:28px;font-weight:800;margin-bottom:4px}
     .subtitle{font-size:14px;color:#f1f1f1;margin-bottom:10px}
 
-    .cta-section{ text-align:center; margin:8px auto 0; padding:12px; max-width:700px; }
+    .cta-section{text-align:center;margin:8px auto 0;padding:12px;max-width:700px;}
     .vacancy-wrap{max-width:600px;margin:4px auto 10px;text-align:center;}
     .vacancy-top{font-weight:800;font-size:16px;margin-bottom:6px;}
     .bar{width:100%;height:14px;background:#f9f9f9;border:2px solid #eee;border-radius:999px;position:relative;overflow:hidden}
     .bar>.fill{position:absolute;inset:0 100% 0 0;background:var(--amber);border-radius:999px;transition:inset .5s ease;overflow:hidden}
-    .bar>.fill::after{content:"";position:absolute; top:0; bottom:0; left:-40%; width:40%; background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.4) 50%, transparent 100%); transform:skewX(-20deg); animation:barSheen 2.2s linear infinite; pointer-events:none}
+    .bar>.fill::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);transform:skewX(-20deg);animation:barSheen 2.2s linear infinite;}
     @keyframes barSheen{from{left:-40%} to{left:110%}}
 
-    .micro-trust{font-size:13.5px;font-weight:700;color:#666;margin:8px 0 10px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .micro-trust{font-size:13.5px;font-weight:700;color:#666;margin:8px 0 10px 0;}
 
     .cta-btn{
-      position:relative; overflow:hidden; display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:14px 26px;width:100%; border-radius:999px;font-weight:900;font-size:17px;letter-spacing:.2px;
-      background:linear-gradient(180deg,var(--pink),var(--pink-dark)); color:#fff;border:none;cursor:pointer;
-      animation:zoomInCta .5s ease both, pulse 1.6s ease-in-out infinite;
-      box-shadow:0 10px 25px rgba(141,0,76,.35); transition:transform .12s ease, opacity .2s ease, filter .2s ease;
+      position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 26px;width:100%;border-radius:999px;font-weight:900;font-size:17px;
+      background:linear-gradient(180deg,var(--pink),var(--pink-dark));color:#fff;border:none;cursor:pointer;
+      animation:zoomInCta .5s ease both,pulse 1.6s ease-in-out infinite;
+      box-shadow:0 10px 25px rgba(141,0,76,.35);
     }
-    .cta-btn:hover{ filter:brightness(1.1); transform:scale(1.03) }
-    @keyframes zoomInCta{from{transform:scale(0.9); opacity:0} to{transform:scale(1); opacity:1}}
-    .cta-btn::after{content:""; position:absolute; top:0; bottom:0; left:-20%; width:20%; background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.45) 50%, transparent 100%); transform:skewX(-20deg); animation:shine 3.5s ease-in-out infinite; pointer-events:none}
-    @keyframes shine{0%,60%{left:-25%} 70%{left:110%} 100%{left:110%}}
-    .cta-btn[disabled]{opacity:.7;cursor:not-allowed;animation:none}
+    .cta-btn::after{content:"";position:absolute;top:0;bottom:0;left:-20%;width:20%;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.45) 50%,transparent 100%);transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite;}
+    @keyframes shine{0%,60%{left:-25%}70%,100%{left:110%}}
+    .cta-btn:hover{filter:brightness(1.1);transform:scale(1.03)}
     .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;display:none;animation:spin .7s linear infinite}
     .cta-btn.loading .spinner{display:inline-block}
     @keyframes spin{to{transform:rotate(360deg)}}
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-    .cta-btn:hover::before,.cta-btn:hover::after{content:"✦"; position:absolute; font-size:12px; opacity:.9; animation:spark 800ms ease-out forwards}
-    .cta-btn:hover::before{ left:18%; top:12% } .cta-btn:hover::after{ right:22%; bottom:18% }
-    @keyframes spark{0%{ transform:scale(.6); opacity:0 }40%{ transform:scale(1.2); opacity:1 }100%{ transform:scale(0.9) translateY(-6px); opacity:0 }}
 
     .trust-line{font-size:12px;color:#777;margin-top:8px;font-weight:600}
 
@@ -144,20 +134,14 @@
     @keyframes slideDown{to{opacity:1;transform:translateY(0)}}
 
     .benefits{max-width:700px;margin:6px auto;padding:0 12px}
-    .benefit{display:flex;align-items:center;gap:12px;background:rgba(77,4,110,0.08);border-radius:14px;padding:12px;margin-bottom:12px;border:1px solid var(--pink);box-shadow:0 4px 10px rgba(0,0,0,0.05);transform:translateY(10px); opacity:0}
-    .emojibox{width:42px;height:42px;min-width:42px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--pink),var(--pink-dark));border-radius:10px;font-size:20px;color:#fff}
+    .benefit{display:flex;align-items:center;gap:12px;background:rgba(77,4,110,0.08);border-radius:14px;padding:12px;margin-bottom:12px;border:1px solid var(--pink);box-shadow:0 4px 10px rgba(0,0,0,0.05);transform:translateY(10px);opacity:0}
+    .emojibox{width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--pink),var(--pink-dark));border-radius:10px;font-size:20px;color:#fff}
     .benefit-text h4{font-size:16px;font-weight:800;margin-bottom:2px}
     .benefit-text p{font-size:13.5px;color:#777;margin:0}
 
     .sticky-footer{position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;padding:10px 14px;box-shadow:0 -8px 20px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:space-between;z-index:50}
-    .sticky-footer div{font-weight:700; font-size:14px;}
-    .sticky-btn{background:linear-gradient(180deg,var(--pink),var(--pink-dark));color:#fff;border:none;border-radius:999px;padding:12px 20px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 6px 16px rgba(141,0,76,.35);margin-left:8px;animation:footPulse 6s ease-in-out infinite;transition:filter .2s ease, transform .12s ease}
-    .sticky-btn:hover{ filter:brightness(1.06); transform:scale(1.02) }
+    .sticky-btn{background:linear-gradient(180deg,var(--pink),var(--pink-dark));color:#fff;border:none;border-radius:999px;padding:12px 20px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 6px 16px rgba(141,0,76,.35);margin-left:8px;animation:footPulse 6s ease-in-out infinite;}
     @keyframes footPulse{0%,92%,100%{transform:scale(1)}95%{transform:scale(1.04)}98%{transform:scale(1.06)}}
-
-    @media (prefers-reduced-motion: reduce){
-      *, *::before, *::after{ animation: none !important; transition: none !important }
-    }
   </style>
 </head>
 <body>
@@ -177,7 +161,7 @@
 
     <div class="micro-trust">✅ +7.500 membros · 🎯 1 clique · 🚫 Sem spam</div>
 
-    <button id="ctaMain" class="cta-btn">
+    <button id="ctaMain" class="cta-btn" type="button">
       <span>ENTRAR GRÁTIS NO GRUPO</span>
       <span class="spinner" aria-hidden="true"></span>
     </button>
@@ -188,42 +172,18 @@
   </section>
 
   <section class="benefits">
-    <div class="benefit">
-      <div class="emojibox">🔥</div>
-      <div class="benefit-text">
-        <h4>Descontos Insanos</h4>
-        <p>Produtos com até 70% OFF</p>
-      </div>
-    </div>
-    <div class="benefit">
-      <div class="emojibox">🎟</div>
-      <div class="benefit-text">
-        <h4>Cupons Exclusivos</h4>
-        <p>Só para membros do grupo</p>
-      </div>
-    </div>
-    <div class="benefit">
-      <div class="emojibox">👀</div>
-      <div class="benefit-text">
-        <h4>Itens em Alta</h4>
-        <p>Os mais desejados do momento</p>
-      </div>
-    </div>
-    <div class="benefit">
-      <div class="emojibox">✅</div>
-      <div class="benefit-text">
-        <h4>Ofertas Verificadas</h4>
-        <p>Promoções reais e testadas</p>
-      </div>
-    </div>
+    <div class="benefit"><div class="emojibox">🔥</div><div class="benefit-text"><h4>Descontos Insanos</h4><p>Produtos com até 70% OFF</p></div></div>
+    <div class="benefit"><div class="emojibox">🎟</div><div class="benefit-text"><h4>Cupons Exclusivos</h4><p>Só para membros do grupo</p></div></div>
+    <div class="benefit"><div class="emojibox">👀</div><div class="benefit-text"><h4>Itens em Alta</h4><p>Os mais desejados do momento</p></div></div>
+    <div class="benefit"><div class="emojibox">✅</div><div class="benefit-text"><h4>Ofertas Verificadas</h4><p>Promoções reais e testadas</p></div></div>
   </section>
 
   <div class="sticky-footer">
     <div>⏳ Últimas vagas de hoje</div>
-    <button id="ctaFooter" class="sticky-btn">Entrar no grupo</button>
+    <button id="ctaFooter" class="sticky-btn" type="button">Entrar no grupo</button>
   </div>
 
-  <!-- Script principal (UI + Lead dedupe + navegação) -->
+  <!-- Script principal -->
   <script>
     function uuidv4(){
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
@@ -233,149 +193,27 @@
     }
 
     function boot(){
-      const WHATS_LINK="https://sndflw.com/i/universoachadinhos";
+      const WHATS_LINK = "https://sndflw.com/i/universoachadinhos";
 
       const START_VACANCIES=24, MIN_VACANCIES=2;
       const feedEl=document.getElementById('feed');
       const vacancyText=document.getElementById('vacancyText');
       const fillBar=document.getElementById('fillBar');
 
-      const NAMES_POOL=[
-        "Francisca Lacerda","Rosália Maria","Maria Júlia Souza","Ana Beatriz Nogueira","Josefa Almeida",
-        "Tereza Lemos","Joana Prado","Helena Barbosa","Cecília Andrade","Laura Pacheco","Clara Moreira",
-        "Isabel Figueira","Marta Azevedo","Aurora Fernandes","Olívia Castro","Beatriz Siqueira",
-        "Lúcia Nunes","Ester Carvalho","Camila Duarte","Regina Campos","Noêmia Teixeira","Paula Rezende",
-        "Marina Peixoto","Cristina Moura","Vitória Lopes","Sueli Brito","Rita Xavier","Elisa Cardoso",
-        "Lorena Ribeiro","Graça Monteiro","Helena Antunes","Patrícia Rocha","Juliana Costa","Madalena Correia",
-        "Adélia Vieira","Celina Pinto","Renata Tavares","Gabriela Melo","Sônia Gonçalves","Daniela Farias"
-      ];
-      function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-      let namesQueue=shuffle([...NAMES_POOL]);
-
-      let currentVacancies = parseInt(localStorage.getItem("currentVacancies")) || START_VACANCIES;
-      function normalizeDateStr(d){return new Date(d.getFullYear(), d.getMonth(), d.getDate()).toDateString();}
-      const todayStr = normalizeDateStr(new Date());
-      const lastResetDate = localStorage.getItem("lastResetDate");
-      if (lastResetDate !== todayStr) { resetVacancies(); }
-      scheduleMidnightReset();
-
-      function resetVacancies(){
-        currentVacancies = START_VACANCIES;
-        localStorage.setItem("currentVacancies", currentVacancies);
-        localStorage.setItem("lastResetDate", normalizeDateStr(new Date()));
-        updateVacancyUI();
-      }
-      function scheduleMidnightReset(){
-        const now = new Date();
-        const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-        const msToMidnight = nextMidnight.getTime() - now.getTime();
-        setTimeout(() => {
-          resetVacancies();
-          setInterval(resetVacancies, 24*60*60*1000);
-        }, msToMidnight);
-      }
       function updateVacancyUI(){
-        if (!vacancyText || !fillBar) return;
-        const prev = vacancyText.textContent;
-        vacancyText.textContent=`Últimas vagas de hoje • Restam ${currentVacancies} 👇`;
-        if(prev !== vacancyText.textContent){
-          vacancyText.style.transition = 'transform .12s ease';
-          vacancyText.style.transform = 'scale(1.08)';
-          setTimeout(()=>vacancyText.style.transform='scale(1)', 120);
-        }
-        const filled=(START_VACANCIES-currentVacancies)/(START_VACANCIES-MIN_VACANCIES);
-        const pct=Math.max(0,Math.min(1,filled));
-        fillBar.style.inset=`0 ${(1-pct)*100}% 0 0`;
+        vacancyText.textContent=`Últimas vagas de hoje • Restam ${START_VACANCIES} 👇`;
+        fillBar.style.inset="0 0 0 0";
       }
-      function step(){
-        if(currentVacancies<=MIN_VACANCIES) return;
-        if(namesQueue.length===0) namesQueue=shuffle([...NAMES_POOL]);
-        const name=namesQueue.shift();
-        pushNotification(name);
-        currentVacancies--;
-        localStorage.setItem("currentVacancies", currentVacancies);
-        updateVacancyUI();
-        if(currentVacancies>MIN_VACANCIES){
-          const nextMs=[1000,2000,3000][Math.floor(Math.random()*3)];
-          setTimeout(step,nextMs);
-        }
-      }
-      function pushNotification(name){
-        if(!feedEl) return;
-        const row=document.createElement('div');
-        row.className='notif';
-        row.innerHTML=`<div class="badge">✅</div><div><strong>${name}</strong> entrou no grupo</div>`;
-        if(feedEl.firstChild){ feedEl.insertBefore(row,feedEl.firstChild); }
-        else{ feedEl.appendChild(row); }
-        if(feedEl.children.length>3){ feedEl.removeChild(feedEl.lastChild); }
-      }
-
-      // Reveal ao rolar
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            e.target.style.transition='transform .4s ease, opacity .4s ease';
-            e.target.style.transform='translateY(0)';
-            e.target.style.opacity='1';
-            io.unobserve(e.target);
-          }
-        });
-      },{threshold:0.12});
-      document.querySelectorAll('.benefit').forEach(b=> io.observe(b));
-
-      /* ===== CLICK → LEAD (ANTI-DUP) ===== */
-      const LEAD_LOCK_KEY = 'lead_lock_until';
-      let leadFiredFlag = false;
-      function canFireLead(){
-        const now = Date.now();
-        const lockUntil = parseInt(sessionStorage.getItem(LEAD_LOCK_KEY) || '0', 10);
-        return (!leadFiredFlag) && (now > lockUntil);
-      }
-      function setLeadLock(ms=30000){
-        sessionStorage.setItem(LEAD_LOCK_KEY, String(Date.now() + ms));
-      }
-      function trackLeadOnce(){
-        if (!canFireLead()) return null;
-        leadFiredFlag = true;
-        setLeadLock(30000);
-        const eventId = 'lead-' + uuidv4();
-        try { fbq('track','Lead',{ event_id: eventId }); } catch(e){}
-        return eventId;
-      }
-
-      function openWhatsAppSmart(){
-        // dispara Lead apenas 1x
-        trackLeadOnce();
-
-        const ua = navigator.userAgent || '';
-        const isAndroid = /Android/i.test(ua);
-        const isIOS     = /iPhone|iPad|iPod/i.test(ua);
-
-        if (isAndroid) {
-          // tracking pelo seu link -> fallback Intent
-          window.location.href = WHATS_LINK;
-          setTimeout(()=>{ window.location.href = 'intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end'; }, 200);
-        } else if (isIOS) {
-          // deep-link app -> fallback link normal
-          window.location.href = 'whatsapp://';
-          setTimeout(()=>{ window.location.href = WHATS_LINK; }, 200);
-        } else {
-          // Desktop: tracking + tentativa de abrir o WhatsApp Web
-          window.location.href = WHATS_LINK;
-          setTimeout(()=>{ window.location.href = 'https://web.whatsapp.com/'; }, 300);
-        }
-        // nada de window.open — evita abas/eventos duplicados
-      }
+      updateVacancyUI();
 
       function handleClick(e){
         const btn = e.currentTarget;
-        if (btn.dataset.clicked === '1') return; // anti duplo clique real
+        if (btn.dataset.clicked === '1') return;
         btn.dataset.clicked = '1';
-
         btn.classList.add('loading');
         btn.setAttribute('disabled','true');
 
-        openWhatsAppSmart();
+        window.location.assign(WHATS_LINK); // ✅ Redireciona corretamente
 
         setTimeout(()=>{
           btn.classList.remove('loading');
@@ -384,24 +222,21 @@
         }, 4000);
       }
 
-      const btnMain  = document.getElementById('ctaMain');
-      const btnFoot  = document.getElementById('ctaFooter');
-      if (btnMain) btnMain.addEventListener('click', handleClick);
-      if (btnFoot) btnFoot.addEventListener('click', handleClick);
-
-      // UI inicial
-      updateVacancyUI();
-      if(currentVacancies>MIN_VACANCIES){ setTimeout(step,1000); }
+      document.getElementById('ctaMain').addEventListener('click', handleClick);
+      document.getElementById('ctaFooter').addEventListener('click', handleClick);
     }
 
-    // Garante DOM pronto antes de iniciar
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', boot, { once:true });
     } else {
       boot();
     }
   </script>
+
+  <noscript>
+    <p style="text-align:center;margin-top:8px">
+      <a href="https://sndflw.com/i/universoachadinhos">Entrar no grupo</a>
+    </p>
+  </noscript>
 </body>
 </html>
-
-
